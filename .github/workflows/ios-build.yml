@@ -2,6 +2,16 @@ name: Build iOS Unsigned IPA
 
 on:
   workflow_dispatch:
+    inputs:
+      runner:
+        description: 'macOS runner label'
+        required: false
+        default: 'macos-15'
+        type: choice
+        options:
+          - macos-15
+          - macos-26
+          - macos-latest
   push:
     branches:
       - main
@@ -16,7 +26,7 @@ on:
 jobs:
   build-ios:
     name: Build Unsigned iOS IPA
-    runs-on: macos-latest
+    runs-on: ${{ inputs.runner || 'macos-15' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
