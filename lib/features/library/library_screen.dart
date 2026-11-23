@@ -43,6 +43,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       appBar: AppBar(title: const Text('追番')),
       body: PageColumn(
         inShell: true,
+        fullBleed: AdaptiveLayout.isPad(context),
         children: [
           SectionHeading(
             '继续观看',
@@ -133,15 +134,19 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                     title: '当前分类暂无条目',
                     message: '没有标记为「${_filter!.label}」的番剧。',
                   )
-                else if (AdaptiveLayout.useSideRail(context))
+                else if (AdaptiveLayout.isWideLayout(context))
                   GridView.builder(
                     shrinkWrap: true,
                     primary: false,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: filtered.length,
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                        SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:
+                              AdaptiveLayout.isPad(context) &&
+                                  MediaQuery.sizeOf(context).width >= 1080
+                              ? 3
+                              : 2,
                           mainAxisExtent: 108,
                           crossAxisSpacing: SpacingTokens.xs,
                           mainAxisSpacing: SpacingTokens.xs,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../app/providers.dart';
 import '../../core/theme/app_theme.dart';
@@ -17,6 +18,7 @@ import '../../media/sources/source_models.dart';
 import '../anime/anime.dart';
 import 'overlay_controls.dart';
 import 'player_controls_bar.dart';
+import 'player_resolve_screen.dart';
 import 'skip_markers.dart';
 import 'source_sheet.dart';
 
@@ -98,10 +100,13 @@ class PlayerSessionHelper {
         SourceState.available,
         startup: elapsedMs,
       );
-      await resolver.store.setPreference(
-        'preferred-source.${candidate.subjectId ?? 0}',
-        link.source,
-      );
+      if (candidate.subjectId case final subjectId?) {
+        await resolver.rememberWorkingSource(
+          subjectId,
+          link.source,
+          label: link.label,
+        );
+      }
     } on Exception {
       // Metrics are best-effort throughout the playback lifecycle.
     }
@@ -240,6 +245,24 @@ class PlayerSessionHelper {
       if (!context.mounted) return;
       if (controller != null) await controller.pause();
       if (!context.mounted) return;
+      if (AdaptiveLayout.isApplePlatform) {
+        context.replace(
+          '/player/resolve',
+          extra: PlayerResolveArgs(
+            request: target,
+            autoPlay: !keepTime,
+            forceShowSources: keepTime,
+            resumeAt: keepTime
+                ? (controller?.positionListenable.value ?? session?.resumeAt)
+                : null,
+            previousDuration: keepTime
+                ? (controller?.durationListenable.value ??
+                      session?.previousDuration)
+                : null,
+          ),
+        );
+        return;
+      }
       await showSources(
         context,
         request: target,
@@ -317,6 +340,32 @@ class PlayerSessionHelper {
       }
     } on Exception {
       if (context.mounted) inform(context, '无法读取下一集信息。');
+    }
+  }
+
+  static Future<void> playPreviousFlow({
+    required BuildContext context,
+    required MediaCandidate candidate,
+    required AnimeRepository catalog,
+    required PlaybackSession? session,
+    required Future<void> Function(MediaSearchRequest request) onSwitch,
+  }) async {
+    try {
+      final info = await resolveEpisodeContext(
+        candidate: candidate,
+        catalog: catalog,
+        session: session,
+      );
+      if (!context.mounted) return;
+      final index = info.episodes.indexWhere((ep) => ep.id == info.currentId);
+      final prev = index > 0 ? info.episodes[index - 1] : null;
+      if (info.anime != null && prev != null) {
+        await onSwitch(MediaSearchRequest(anime: info.anime, episode: prev));
+      } else {
+        inform(context, '已经是第一集了。');
+      }
+    } on Exception {
+      if (context.mounted) inform(context, '无法读取上一集信息。');
     }
   }
 
@@ -739,6 +788,7 @@ class PlayerSettingsPanel extends ConsumerStatefulWidget {
 
 class _PlayerSettingsPanelState extends ConsumerState<PlayerSettingsPanel> {
   late SkipMarkers _markers = widget.skipMarkers;
+  bool _showInlineSources = false;
 
   void _saveMarkers(SkipMarkers next) {
     setState(() => _markers = next);
@@ -954,6 +1004,10 @@ class _PlayerSettingsPanelState extends ConsumerState<PlayerSettingsPanel> {
     final anime =
         subjectId == null ? null : ref.watch(subjectProvider(subjectId)).value?.value;
     final episodes = episodesAsync?.value?.value ?? const <Episode>[];
+    final currentEp = episodes
+        .where((ep) => ep.id == widget.media.episodeId)
+        .firstOrNull;
+    final isApple = AdaptiveLayout.isApplePlatform;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(SpacingTokens.md),
@@ -972,13 +1026,39 @@ class _PlayerSettingsPanelState extends ConsumerState<PlayerSettingsPanel> {
               subtitle: parsed.displayTags.isEmpty
                   ? null
                   : Text(parsed.displayTags.join(' · ')),
-              trailing: const Icon(Icons.swap_horiz_rounded),
+              trailing: Icon(
+                isApple && _showInlineSources
+                    ? Icons.expand_less_rounded
+                    : Icons.swap_horiz_rounded,
+              ),
               onTap: () {
-                widget.onClose();
-                widget.onSwitchSource();
+                if (isApple) {
+                  setState(() => _showInlineSources = !_showInlineSources);
+                } else {
+                  widget.onClose();
+                  widget.onSwitchSource();
+                }
               },
             ),
           ),
+          if (isApple && _showInlineSources) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            InPlayerSourcePanel(
+              request: MediaSearchRequest(anime: anime, episode: currentEp),
+              resumeAt: widget.controller.positionListenable.value,
+              previousDuration: widget.controller.durationListenable.value,
+              onLaunch: (launch) async {
+                await widget.controller.pause();
+                widget.onClose();
+                if (context.mounted) {
+                  context.replace(
+                    '/player/${launch.candidate.id}',
+                    extra: launch.session,
+                  );
+                }
+              },
+            ),
+          ],
           if (episodes.isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.md),
             const SectionHeading('选集'),

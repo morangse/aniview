@@ -12,6 +12,7 @@ import '../../media/media.dart';
 import '../anime/anime.dart';
 import '../library/collection_sheet.dart';
 import '../player/source_sheet.dart';
+import 'ios_home_widgets.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -49,6 +50,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         : _heroIndex.clamp(0, spotlight.length - 1);
     final current = spotlight.isEmpty ? null : spotlight[safeHero];
 
+    final isApple = AdaptiveLayout.isApplePlatform;
+    final isPad = AdaptiveLayout.isPad(context);
+    final segmentedBar = LiquidGlassSegmentedBar(
+      labels: _tabs,
+      selectedIndex: _tab,
+      onSelect: _setTab,
+    );
+
     return Scaffold(
       body: Stack(
         children: [
@@ -58,34 +67,62 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             child: PageColumn(
               key: const PageStorageKey('home-scroll'),
               inShell: true,
+              fullBleed: isApple,
               children: [
                 Row(
                   children: [
                     const _Brand(),
                     const Spacer(),
-                    IconCapsuleButton(
-                      icon: Icons.search_rounded,
-                      label: '搜索',
-                      onPressed: () => context.go('/discover?focus=1'),
-                    ),
-                    const SizedBox(width: SpacingTokens.xs),
-                    IconCapsuleButton(
-                      icon: Icons.notifications_none_rounded,
-                      label: '追番动态',
-                      onPressed: () => _showActivitySheet(
-                        context,
-                        favoriteEntries,
-                        history.value ?? const <WatchEntry>[],
+                    if (isApple) ...[
+                      LiquidGlassCircleButton(
+                        icon: Icons.search_rounded,
+                        label: '搜索',
+                        size: 40,
+                        iconSize: 20,
+                        onPressed: () => context.go('/discover?focus=1'),
                       ),
-                    ),
+                      const SizedBox(width: SpacingTokens.xs),
+                      LiquidGlassCircleButton(
+                        icon: Icons.notifications_none_rounded,
+                        label: '追番动态',
+                        size: 40,
+                        iconSize: 20,
+                        onPressed: () => _showActivitySheet(
+                          context,
+                          favoriteEntries,
+                          history.value ?? const <WatchEntry>[],
+                        ),
+                      ),
+                    ] else ...[
+                      IconCapsuleButton(
+                        icon: Icons.search_rounded,
+                        label: '搜索',
+                        onPressed: () => context.go('/discover?focus=1'),
+                      ),
+                      const SizedBox(width: SpacingTokens.xs),
+                      IconCapsuleButton(
+                        icon: Icons.notifications_none_rounded,
+                        label: '追番动态',
+                        onPressed: () => _showActivitySheet(
+                          context,
+                          favoriteEntries,
+                          history.value ?? const <WatchEntry>[],
+                        ),
+                      ),
+                    ],
                   ],
                 ),
                 const SizedBox(height: SpacingTokens.xs),
-                LiquidGlassSegmentedBar(
-                  labels: _tabs,
-                  selectedIndex: _tab,
-                  onSelect: _setTab,
-                ),
+                if (isPad)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 460),
+                      child: segmentedBar,
+                    ),
+                  )
+                else
+                  segmentedBar,
                 const SizedBox(height: SpacingTokens.sm),
                 if (_tab == 0) ...[
                   _HomeHero(
@@ -105,20 +142,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             MediaRequest(anime: current),
                           ),
                   ),
-                  const SizedBox(height: SpacingTokens.xs),
-                  SectionHeading(
-                    '继续观看',
-                    action: '查看全部',
-                    onAction: () => context.push('/history'),
-                  ),
+                  SizedBox(height: isPad ? SpacingTokens.md : SpacingTokens.xs),
+                  if (isApple)
+                    IosSectionHeader(
+                      title: '继续观看',
+                      onTapAction: () => context.push('/history'),
+                    )
+                  else
+                    SectionHeading(
+                      '继续观看',
+                      action: '查看全部',
+                      onAction: () => context.push('/history'),
+                    ),
                   _ContinueStrip(history: history),
-                  const SizedBox(height: SpacingTokens.xs),
+                  SizedBox(height: isPad ? SpacingTokens.md : SpacingTokens.xs),
                   _CatalogStrip(
                     title: '本季新番',
                     catalog: Catalog.season,
                     page: seasonal,
                   ),
-                  const SizedBox(height: SpacingTokens.xs),
+                  SizedBox(height: isPad ? SpacingTokens.md : SpacingTokens.xs),
                   _CatalogStrip(
                     title: '热门推荐',
                     catalog: Catalog.popular,
@@ -385,6 +428,9 @@ class _HomeHero extends ConsumerWidget {
       if (anime?.episodeCount case final total?) '$total 集',
       if (anime != null) ...anime.tags.where(genres.contains).take(2),
     ].join(' · ');
+    final isApple = AdaptiveLayout.isApplePlatform;
+    final isPad = AdaptiveLayout.isPad(context);
+    final isWide = AdaptiveLayout.isWideLayout(context);
     return GestureDetector(
       onHorizontalDragEnd: onChange == null
           ? null
@@ -405,13 +451,15 @@ class _HomeHero extends ConsumerWidget {
                 child: ColoredBox(color: ColorTokens.surface),
               ),
               Positioned.fill(
-                left: anime == null ? 0 : 62,
+                left: (anime == null || isApple) ? 0 : 62,
                 child: RepaintBoundary(
                   child: Artwork(
                     uri: anime?.poster ?? anime?.cover,
                     asset: anime == null ? localArtwork : null,
-                    alignment: const Alignment(.36, -.38),
-                    decodeWidth: 920,
+                    alignment: isApple
+                        ? const Alignment(0.25, -0.35)
+                        : const Alignment(.36, -.38),
+                    decodeWidth: isPad ? 1280 : 920,
                   ),
                 ),
               ),
@@ -458,12 +506,16 @@ class _HomeHero extends ConsumerWidget {
               ),
               ConstrainedBox(
                 constraints: BoxConstraints(
-                  minHeight: AdaptiveLayout.useSideRail(context)
+                  minHeight: isPad
+                      ? 300.0
+                      : isWide
                       ? 284.0
                       : LayoutTokens.heroMinHeight,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(SpacingTokens.md),
+                  padding: EdgeInsets.all(
+                    isPad ? SpacingTokens.lg : SpacingTokens.md,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -486,8 +538,11 @@ class _HomeHero extends ConsumerWidget {
                           bottom: SpacingTokens.sm,
                         ),
                         child: FractionallySizedBox(
-                          widthFactor:
-                              AdaptiveLayout.useSideRail(context) ? .64 : .82,
+                          widthFactor: isPad
+                              ? .52
+                              : isWide
+                              ? .64
+                              : .82,
                           alignment: Alignment.centerLeft,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -552,31 +607,71 @@ class _HomeHero extends ConsumerWidget {
                         runSpacing: SpacingTokens.xs,
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          SoftButton(
-                            label: anime == null ? '选择片源' : '立即播放',
-                            icon: Icons.play_arrow_rounded,
-                            style: SoftStyle.accent,
-                            onPressed: onPlay,
-                          ),
-                          if (anime != null)
-                            SoftButton(
-                              label: savedEntry == null
-                                  ? '加入追番'
-                                  : savedEntry!.status.label,
-                              icon: savedEntry != null
-                                  ? Icons.bookmark_rounded
-                                  : Icons.bookmark_border_rounded,
-                              style: SoftStyle.outline,
-                              selected: savedEntry != null,
-                              onPressed: !favoritesReady
-                                  ? null
-                                  : () => showCollectionSheet(
-                                      context,
-                                      ref,
-                                      anime,
-                                      savedEntry,
-                                    ),
+                          if (isApple)
+                            FilledButton.icon(
+                              onPressed: onPlay,
+                              style: FilledButton.styleFrom(
+                                backgroundColor: ColorTokens.text,
+                                foregroundColor: ColorTokens.background,
+                                shape: const StadiumBorder(),
+                                minimumSize: const Size(124, 44),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                ),
+                                textStyle: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              icon: const Icon(Icons.play_arrow_rounded, size: 22),
+                              label: Text(anime == null ? '选择片源' : '立即播放'),
                             )
+                          else
+                            SoftButton(
+                              label: anime == null ? '选择片源' : '立即播放',
+                              icon: Icons.play_arrow_rounded,
+                              style: SoftStyle.accent,
+                              onPressed: onPlay,
+                            ),
+                          if (anime != null)
+                            if (isApple)
+                              LiquidGlassCircleButton(
+                                icon: savedEntry != null
+                                    ? Icons.bookmark_rounded
+                                    : Icons.bookmark_border_rounded,
+                                label: savedEntry == null
+                                    ? '加入追番'
+                                    : savedEntry!.status.label,
+                                active: savedEntry != null,
+                                size: 44,
+                                onPressed: !favoritesReady
+                                    ? null
+                                    : () => showCollectionSheet(
+                                        context,
+                                        ref,
+                                        anime,
+                                        savedEntry,
+                                      ),
+                              )
+                            else
+                              SoftButton(
+                                label: savedEntry == null
+                                    ? '加入追番'
+                                    : savedEntry!.status.label,
+                                icon: savedEntry != null
+                                    ? Icons.bookmark_rounded
+                                    : Icons.bookmark_border_rounded,
+                                style: SoftStyle.outline,
+                                selected: savedEntry != null,
+                                onPressed: !favoritesReady
+                                    ? null
+                                    : () => showCollectionSheet(
+                                        context,
+                                        ref,
+                                        anime,
+                                        savedEntry,
+                                      ),
+                              )
                           else
                             SoftButton(
                               label: '发现番剧',
@@ -670,6 +765,9 @@ class _ContinueStrip extends StatelessWidget {
           .take(10)
           .toList();
       if (active.isEmpty) {
+        if (AdaptiveLayout.isApplePlatform) {
+          return const IosEmptyContinueCard();
+        }
         return Panel(
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(
@@ -683,6 +781,21 @@ class _ContinueStrip extends StatelessWidget {
             subtitle: const Text('从本地文件或播放地址开始'),
             trailing: const Icon(Icons.chevron_right_rounded),
             onTap: () => showSources(context),
+          ),
+        );
+      }
+      if (AdaptiveLayout.isApplePlatform) {
+        return SizedBox(
+          height: IosContinueCard.cardHeight(context),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: active.length,
+            separatorBuilder: (_, _) => SizedBox(
+              width: AdaptiveLayout.isPad(context)
+                  ? SpacingTokens.sm
+                  : SpacingTokens.xs,
+            ),
+            itemBuilder: (_, index) => IosContinueCard(entry: active[index]),
           ),
         );
       }
@@ -801,32 +914,63 @@ class _CatalogStrip extends ConsumerWidget {
   final AsyncValue<CatalogPage> page;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      SectionHeading(
-        title,
-        action: '查看全部',
-        onAction: () => context.push('/catalog/${catalog.name}'),
-      ),
-      _CatalogStatus(
-        page: page,
-        retry: () => ref.invalidate(catalogProvider(catalog)),
-        render: (result) => SizedBox(
-          height: LayoutTokens.posterHeight,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: result.items.take(12).length,
-            separatorBuilder: (_, _) => const SizedBox(width: SpacingTokens.xs),
-            itemBuilder: (context, index) => SizedBox(
-              width: LayoutTokens.posterWidth,
-              child: AnimeTile(anime: result.items[index]),
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isApple = AdaptiveLayout.isApplePlatform;
+    final isPad = AdaptiveLayout.isPad(context);
+    final count = page.value?.items.length;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (isApple)
+          IosSectionHeader(
+            title: title,
+            countLabel: count == null ? '查看全部' : '$count',
+            onTapAction: () => context.push('/catalog/${catalog.name}'),
+          )
+        else
+          SectionHeading(
+            title,
+            action: '查看全部',
+            onAction: () => context.push('/catalog/${catalog.name}'),
           ),
+        _CatalogStatus(
+          page: page,
+          retry: () => ref.invalidate(catalogProvider(catalog)),
+          render: (result) {
+            if (isApple) {
+              return SizedBox(
+                height: IosPosterCard.cardHeight(context),
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: result.items.take(16).length,
+                  separatorBuilder: (_, _) => SizedBox(
+                    width: isPad ? SpacingTokens.sm : SpacingTokens.xs,
+                  ),
+                  itemBuilder: (context, index) => SizedBox(
+                    width: IosPosterCard.cardWidth(context),
+                    child: IosPosterCard(anime: result.items[index]),
+                  ),
+                ),
+              );
+            }
+            return SizedBox(
+              height: LayoutTokens.posterHeight,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: result.items.take(12).length,
+                separatorBuilder: (_, _) =>
+                    const SizedBox(width: SpacingTokens.xs),
+                itemBuilder: (context, index) => SizedBox(
+                  width: LayoutTokens.posterWidth,
+                  child: AnimeTile(anime: result.items[index]),
+                ),
+              ),
+            );
+          },
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }
 
 class _CatalogGrid extends ConsumerWidget {
@@ -835,32 +979,56 @@ class _CatalogGrid extends ConsumerWidget {
   final String title;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Column(
-    children: [
-      SectionHeading(
-        title,
-        action: '查看全部',
-        onAction: () => context.push('/catalog/${catalog.name}'),
-      ),
-      _CatalogStatus(
-        page: ref.watch(catalogProvider(catalog)),
-        retry: () => ref.invalidate(catalogProvider(catalog)),
-        render: (page) => GridView.builder(
-          shrinkWrap: true,
-          primary: false,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: page.items.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: AdaptiveLayout.gridColumns(context),
-            childAspectRatio: .67,
-            crossAxisSpacing: SpacingTokens.xs,
-            mainAxisSpacing: SpacingTokens.xs,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isApple = AdaptiveLayout.isApplePlatform;
+    final isPad = AdaptiveLayout.isPad(context);
+    final width = MediaQuery.sizeOf(context).width;
+    final padCols = width >= 1050 ? 6 : 5;
+    final appleCols = isPad ? padCols : 3;
+    return Column(
+      children: [
+        if (isApple)
+          IosSectionHeader(
+            title: title,
+            onTapAction: () => context.push('/catalog/${catalog.name}'),
+          )
+        else
+          SectionHeading(
+            title,
+            action: '查看全部',
+            onAction: () => context.push('/catalog/${catalog.name}'),
           ),
-          itemBuilder: (_, index) => AnimeTile(anime: page.items[index]),
+        _CatalogStatus(
+          page: ref.watch(catalogProvider(catalog)),
+          retry: () => ref.invalidate(catalogProvider(catalog)),
+          render: (page) => GridView.builder(
+            shrinkWrap: true,
+            primary: false,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: page.items.length,
+            gridDelegate: isApple
+                ? SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: appleCols,
+                    childAspectRatio: 0.54,
+                    crossAxisSpacing: isPad
+                        ? SpacingTokens.sm
+                        : SpacingTokens.xs,
+                    mainAxisSpacing: SpacingTokens.md,
+                  )
+                : SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: AdaptiveLayout.gridColumns(context),
+                    childAspectRatio: .67,
+                    crossAxisSpacing: SpacingTokens.xs,
+                    mainAxisSpacing: SpacingTokens.xs,
+                  ),
+            itemBuilder: (_, index) => isApple
+                ? IosPosterCard(anime: page.items[index])
+                : AnimeTile(anime: page.items[index]),
+          ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }
 
 class _CatalogStatus extends StatelessWidget {

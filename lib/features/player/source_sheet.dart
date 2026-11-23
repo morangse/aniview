@@ -16,6 +16,7 @@ import '../../media/sources/media_pipeline.dart';
 import '../../media/sources/source_adapters.dart';
 import '../../media/sources/source_models.dart';
 import '../anime/anime.dart';
+import 'player_resolve_screen.dart';
 
 typedef _PlaybackLaunch = ({
   MediaCandidate candidate,
@@ -65,8 +66,15 @@ Future<void> showSources(
   }
 }
 
-Future<void> playAutomatically(BuildContext context, MediaRequest request) =>
-    showSources(context, request: request, autoStart: true);
+Future<void> playAutomatically(BuildContext context, MediaRequest request) {
+  if (AdaptiveLayout.isApplePlatform) {
+    return context.push<void>(
+      '/player/resolve',
+      extra: PlayerResolveArgs(request: MediaSearchRequest.from(request)),
+    );
+  }
+  return showSources(context, request: request, autoStart: true);
+}
 
 class _SourceSheet extends ConsumerStatefulWidget {
   const _SourceSheet({

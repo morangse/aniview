@@ -11,6 +11,7 @@ import '../../media/media.dart';
 import '../library/collection_sheet.dart';
 import '../player/source_sheet.dart';
 import 'anime.dart';
+import 'ios_anime_detail_view.dart';
 
 class AnimeScreen extends ConsumerStatefulWidget {
   const AnimeScreen({super.key, required this.id, this.preview});
@@ -35,6 +36,14 @@ class _AnimeScreenState extends ConsumerState<AnimeScreen> {
         ?.where((entry) => entry.anime.id == id)
         .firstOrNull;
     final anime = detail.value?.value ?? savedEntry?.anime ?? widget.preview;
+    if (AdaptiveLayout.isApplePlatform && anime != null) {
+      return IosAnimeDetailView(
+        anime: anime,
+        detail: detail,
+        savedEntry: savedEntry,
+        favoritesReady: favorites.hasValue,
+      );
+    }
     final type = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
@@ -96,7 +105,7 @@ class _AnimeScreenState extends ConsumerState<AnimeScreen> {
         .firstOrNull;
     final episodeList = episodes.value?.value;
     final count = anime.episodeCount;
-    final wide = AdaptiveLayout.useSideRail(context);
+    final wide = AdaptiveLayout.isWideLayout(context);
 
     final heroWidgets = <Widget>[
       _DetailArtwork(anime: anime),

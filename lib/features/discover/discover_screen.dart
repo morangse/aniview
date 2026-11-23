@@ -185,7 +185,9 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
         child: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: AdaptiveLayout.contentMaxWidth(context),
+              maxWidth: AdaptiveLayout.isPad(context)
+                  ? double.infinity
+                  : AdaptiveLayout.contentMaxWidth(context),
             ),
             child: CustomScrollView(
               controller: _scroll,
@@ -193,7 +195,7 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
               slivers: [
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.all(SpacingTokens.md),
+                    padding: EdgeInsets.all(AdaptiveLayout.iosPagePadding(context)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -295,13 +297,21 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
                   ),
                 ),
                 SliverPadding(
-                  padding: SpacingTokens.horizontal,
-                  sliver: AdaptiveLayout.useSideRail(context)
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AdaptiveLayout.isPad(context)
+                        ? SpacingTokens.lg
+                        : SpacingTokens.md,
+                  ),
+                  sliver: AdaptiveLayout.isWideLayout(context)
                       ? SliverGrid.builder(
                           itemCount: _results.length,
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount:
+                                    AdaptiveLayout.isPad(context) &&
+                                        MediaQuery.sizeOf(context).width >= 1080
+                                    ? 3
+                                    : 2,
                                 mainAxisExtent: 108,
                                 crossAxisSpacing: SpacingTokens.xs,
                                 mainAxisSpacing: SpacingTokens.xs,

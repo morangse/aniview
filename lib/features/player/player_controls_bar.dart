@@ -9,6 +9,7 @@ import '../../core/widgets/soft_controls.dart';
 import '../../media/media.dart';
 import '../../media/playback_controller.dart';
 import '../anime/anime.dart';
+import 'ios_player_controls.dart';
 import 'overlay_controls.dart';
 import 'player_gesture_layer.dart';
 import 'player_panels.dart';
@@ -30,19 +31,40 @@ class PlayerHeader extends StatelessWidget {
     super.key,
     required this.candidate,
     required this.onBack,
+    this.full = false,
+    this.danmakuEnabled = false,
     this.supportsPip = false,
     this.onEnterPip,
+    this.onToggleDanmaku,
+    this.onOpenComposer,
     this.onOpenSettings,
   });
 
   final MediaCandidate candidate;
   final VoidCallback onBack;
+  final bool full;
+  final bool danmakuEnabled;
   final bool supportsPip;
   final VoidCallback? onEnterPip;
+  final VoidCallback? onToggleDanmaku;
+  final VoidCallback? onOpenComposer;
   final VoidCallback? onOpenSettings;
 
   @override
-  Widget build(BuildContext context) => DecoratedBox(
+  Widget build(BuildContext context) {
+    if (AdaptiveLayout.isApplePlatform && full) {
+      return IosFullscreenHeader(
+        candidate: candidate,
+        danmakuEnabled: danmakuEnabled,
+        supportsPip: supportsPip,
+        onBack: onBack,
+        onEnterPip: onEnterPip,
+        onToggleDanmaku: onToggleDanmaku,
+        onOpenComposer: onOpenComposer,
+        onOpenSettings: onOpenSettings,
+      );
+    }
+    return DecoratedBox(
     decoration: const BoxDecoration(
       gradient: LinearGradient(
         begin: Alignment.topCenter,
@@ -119,6 +141,7 @@ class PlayerHeader extends StatelessWidget {
       ),
     ),
   );
+  }
 }
 
 class PlayerControlsFooter extends StatefulWidget {
@@ -140,6 +163,12 @@ class PlayerControlsFooter extends StatefulWidget {
     required this.onOpenEpisodes,
     required this.onOpenSpeed,
     required this.onOpenSubtitles,
+    this.candidate,
+    this.onToggleLock,
+    this.onSkipSeconds,
+    this.onPlayPrevious,
+    this.onSwitchSource,
+    this.onOpenSettings,
   });
 
   final PlaybackController controller;
@@ -158,6 +187,12 @@ class PlayerControlsFooter extends StatefulWidget {
   final VoidCallback onOpenEpisodes;
   final VoidCallback onOpenSpeed;
   final VoidCallback onOpenSubtitles;
+  final MediaCandidate? candidate;
+  final VoidCallback? onToggleLock;
+  final void Function(int seconds)? onSkipSeconds;
+  final VoidCallback? onPlayPrevious;
+  final VoidCallback? onSwitchSource;
+  final VoidCallback? onOpenSettings;
 
   @override
   State<PlayerControlsFooter> createState() => _PlayerControlsFooterState();
@@ -318,6 +353,27 @@ class _PlayerControlsFooterState extends State<PlayerControlsFooter> {
             ],
           ),
         ),
+      );
+    }
+
+    if (AdaptiveLayout.isApplePlatform && widget.full) {
+      return IosFullscreenFooter(
+        candidate: widget.candidate,
+        state: state,
+        timeline: timeline,
+        danmakuEnabled: widget.danmakuEnabled,
+        onTogglePlayback: widget.onTogglePlayback,
+        onToggleFullscreen: widget.onToggleFullscreen,
+        onToggleDanmaku: widget.onToggleDanmaku,
+        onOpenEpisodes: widget.onOpenEpisodes,
+        onOpenSpeed: widget.onOpenSpeed,
+        onOpenSubtitles: widget.onOpenSubtitles,
+        onToggleLock: widget.onToggleLock,
+        onSkipSeconds: widget.onSkipSeconds,
+        onPlayPrevious: widget.onPlayPrevious,
+        onPlayNext: widget.onPlayNext,
+        onSwitchSource: widget.onSwitchSource,
+        onOpenSettings: widget.onOpenSettings,
       );
     }
 
@@ -606,6 +662,7 @@ class PlayerViewport extends StatelessWidget {
     required this.onOpenEpisodes,
     required this.onOpenSpeed,
     required this.onOpenSubtitles,
+    this.onPlayPrevious,
   });
 
   final MediaCandidate candidate;
@@ -654,6 +711,7 @@ class PlayerViewport extends StatelessWidget {
   final VoidCallback onOpenEpisodes;
   final VoidCallback onOpenSpeed;
   final VoidCallback onOpenSubtitles;
+  final VoidCallback? onPlayPrevious;
 
   @override
   Widget build(BuildContext context) {
@@ -705,8 +763,12 @@ class PlayerViewport extends StatelessWidget {
             right: 0,
             child: PlayerHeader(
               candidate: candidate,
+              full: full,
+              danmakuEnabled: danmakuEnabled,
               supportsPip: supportsPip && !locked,
               onEnterPip: onEnterPip,
+              onToggleDanmaku: onToggleDanmaku,
+              onOpenComposer: onOpenComposer,
               onOpenSettings: activeController == null ? null : onOpenSettings,
               onBack: onBack,
             ),
@@ -792,6 +854,7 @@ class PlayerViewport extends StatelessWidget {
                         full: full,
                         danmakuEnabled: danmakuEnabled,
                         skipMarkers: skipMarkers,
+                        candidate: candidate,
                         onTogglePlayback: onTogglePlayback,
                         onSeek: onSeek,
                         onKeepControlsVisible: onKeepControlsVisible,
@@ -800,9 +863,14 @@ class PlayerViewport extends StatelessWidget {
                         onToggleDanmaku: onToggleDanmaku,
                         onOpenComposer: onOpenComposer,
                         onPlayNext: onPlayNext,
+                        onPlayPrevious: onPlayPrevious,
                         onOpenEpisodes: onOpenEpisodes,
                         onOpenSpeed: onOpenSpeed,
                         onOpenSubtitles: onOpenSubtitles,
+                        onToggleLock: onToggleLock,
+                        onSkipSeconds: onSkipSeconds,
+                        onSwitchSource: onSwitchSource,
+                        onOpenSettings: onOpenSettings,
                       ),
                     ),
                 ],
@@ -900,13 +968,16 @@ class PlayerScreenScaffold extends StatelessWidget {
                     ),
                     const SizedBox(width: SpacingTokens.md),
                     SizedBox(
-                      width: 360,
+                      width: AdaptiveLayout.isPad(context) ? 380 : 360,
                       child: LiquidGlassSurface(
                         radius: RadiusTokens.panel,
-                        blur: 14,
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: details,
+                        blur: 16,
+                        child: ClipRRect(
+                          borderRadius: RadiusTokens.panel,
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: details,
+                          ),
                         ),
                       ),
                     ),

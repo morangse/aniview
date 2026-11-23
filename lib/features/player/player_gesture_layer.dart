@@ -286,7 +286,9 @@ class _PlayerGestureLayerState extends State<PlayerGestureLayer> {
         widget.gestureHint != null;
     final showLockButton =
         widget.full &&
-        (widget.locked ? _lockButtonVisible : widget.controlsVisible);
+        (widget.locked
+            ? _lockButtonVisible
+            : (!AdaptiveLayout.isApplePlatform && widget.controlsVisible));
 
     return Stack(
       fit: StackFit.expand,

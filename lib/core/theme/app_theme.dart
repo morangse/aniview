@@ -75,8 +75,17 @@ abstract final class AdaptiveLayout {
     return DeviceLayoutClass.medium;
   }
 
-  static bool useSideRail(BuildContext context) =>
+  static bool isWideLayout(BuildContext context) =>
       sizeClass(context) != DeviceLayoutClass.compact;
+
+  static bool useSideRail(BuildContext context) =>
+      !isApplePlatform && isWideLayout(context);
+
+  static bool isPad(BuildContext context) =>
+      isApplePlatform && isWideLayout(context);
+
+  static double iosPagePadding(BuildContext context) =>
+      isPad(context) ? SpacingTokens.lg : SpacingTokens.md;
 
   static bool useWideTheatre(BuildContext context) {
     final size = MediaQuery.sizeOf(context);

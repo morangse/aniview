@@ -12,11 +12,13 @@ import '../features/discover/discover_screen.dart';
 import '../features/downloads/download_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/library/library_screen.dart';
+import '../features/player/player_resolve_screen.dart';
 import '../features/player/player_screen.dart';
 import '../features/settings/bangumi_account_screen.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/sources/source_management_screen.dart';
 import '../media/sources/media_pipeline.dart';
+import '../media/sources/source_models.dart';
 
 class AniViewApp extends StatefulWidget {
   const AniViewApp({super.key});
@@ -85,6 +87,23 @@ class _AniViewAppState extends State<AniViewApp> {
           return catalog == null
               ? const _MissingRoute()
               : DiscoverScreen(catalog: catalog);
+        },
+      ),
+      GoRoute(
+        path: '/player/resolve',
+        pageBuilder: (_, state) {
+          final args = state.extra is PlayerResolveArgs
+              ? state.extra as PlayerResolveArgs
+              : const PlayerResolveArgs(request: MediaSearchRequest());
+          return NoTransitionPage(
+            key: state.pageKey,
+            child: PlayerResolveScreen(
+              key: ValueKey(
+                'resolve-${args.request.episodeKey}-${args.forceShowSources}-${args.autoPlay}',
+              ),
+              args: args,
+            ),
+          );
         },
       ),
       GoRoute(
@@ -163,6 +182,7 @@ class _Shell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final useRail = AdaptiveLayout.useSideRail(context);
+    final isApple = AdaptiveLayout.isApplePlatform;
     return PopScope(
       canPop: navigation.currentIndex == 0,
       onPopInvokedWithResult: (popped, _) {
@@ -206,22 +226,30 @@ class _Shell extends StatelessWidget {
                     right: 0,
                     child: SafeArea(
                       top: false,
-                      minimum: const EdgeInsets.only(
-                        left: SpacingTokens.sm,
-                        right: SpacingTokens.sm,
-                        bottom: SpacingTokens.xs,
-                      ),
+                      minimum: isApple
+                          ? const EdgeInsets.only(bottom: 10)
+                          : const EdgeInsets.only(
+                              left: SpacingTokens.sm,
+                              right: SpacingTokens.sm,
+                              bottom: SpacingTokens.xs,
+                            ),
                       child: Center(
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: LayoutTokens.contentMax,
-                          ),
-                          child: GlassNavigationBar(
-                            key: const ValueKey('glass-nav'),
-                            index: navigation.currentIndex,
-                            onSelect: _selectBranch,
-                          ),
-                        ),
+                        child: isApple
+                            ? IosLiquidGlassDock(
+                                key: const ValueKey('ios-liquid-dock'),
+                                index: navigation.currentIndex,
+                                onSelect: _selectBranch,
+                              )
+                            : ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxWidth: LayoutTokens.contentMax,
+                                ),
+                                child: GlassNavigationBar(
+                                  key: const ValueKey('glass-nav'),
+                                  index: navigation.currentIndex,
+                                  onSelect: _selectBranch,
+                                ),
+                              ),
                       ),
                     ),
                   ),

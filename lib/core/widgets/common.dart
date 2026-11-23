@@ -8,32 +8,39 @@ class PageColumn extends StatelessWidget {
     super.key,
     required this.children,
     this.inShell = false,
+    this.fullBleed = false,
     this.controller,
   });
 
   final List<Widget> children;
   final bool inShell;
+  final bool fullBleed;
   final ScrollController? controller;
 
   @override
   Widget build(BuildContext context) {
     final reserveNav = inShell && !AdaptiveLayout.useSideRail(context);
+    final hPad = fullBleed
+        ? AdaptiveLayout.iosPagePadding(context)
+        : SpacingTokens.md;
+    final list = ListView(
+      controller: controller,
+      padding: EdgeInsets.fromLTRB(
+        hPad,
+        SpacingTokens.sm,
+        hPad,
+        (reserveNav ? LayoutTokens.navReserve : SpacingTokens.lg) +
+            MediaQuery.paddingOf(context).bottom,
+      ),
+      children: children,
+    );
+    if (fullBleed) return list;
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: AdaptiveLayout.contentMaxWidth(context),
         ),
-        child: ListView(
-          controller: controller,
-          padding: EdgeInsets.fromLTRB(
-            SpacingTokens.md,
-            SpacingTokens.sm,
-            SpacingTokens.md,
-            (reserveNav ? LayoutTokens.navReserve : SpacingTokens.lg) +
-                MediaQuery.paddingOf(context).bottom,
-          ),
-          children: children,
-        ),
+        child: list,
       ),
     );
   }

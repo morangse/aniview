@@ -10,6 +10,7 @@ import 'animeko_rss_source.dart';
 import 'animeko_web_source.dart';
 import 'catalog_source.dart';
 import 'episode_matcher.dart';
+import 'release_title_parser.dart';
 import 'source_adapters.dart';
 import 'source_models.dart';
 import 'source_store.dart';
@@ -160,6 +161,7 @@ class MediaFetcher {
         for (final cancel in cancelTokens) {
           if (!cancel.isCancelled) cancel.cancel();
         }
+        if (!controller.isClosed) unawaited(controller.close());
       },
     );
     return controller.stream;
@@ -255,6 +257,7 @@ class MediaSelector {
     Iterable<(SourceOffer, MatchEvidence)> candidates,
     Map<String, SourceHealthRow> health, {
     String? preferred,
+    String? preferredFansub,
     String? preferredAudio,
     String? preferredSubtitle,
   }) {
@@ -276,10 +279,15 @@ class MediaSelector {
                 .round();
       final latency = record?.startupMs ?? 0;
       final effectiveWidth = offer.width ?? evidence.inferredWidth ?? 0;
+      final matchesFansub =
+          preferredFansub != null &&
+          evidence.fansub != null &&
+          evidence.fansub!.toLowerCase() == preferredFansub.toLowerCase();
       final score =
           (evidence.verified ? 1500 : 0) +
           evidence.score * 2 +
           (preferred == offer.sourceId ? 90 : 0) +
+          (matchesFansub ? 45 : 0) +
           offer.priority * 5 +
           (state == SourceState.available
               ? 25
@@ -330,27 +338,215 @@ class MediaResolver {
   Future<String?> preferredSource(int? subjectId) =>
       store.preference('preferred-source.${subjectId ?? 0}');
 
-  Stream<FetchResult> watch(MediaSearchRequest request) async* {
+  Future<String?> verifiedSource(int? subjectId) async {
+    if (subjectId == null) return null;
+    final value = await store.preference('verified-source.$subjectId');
+    return value == null || value.isEmpty ? null : value;
+  }
+
+  Future<String?> preferredFansub(int? subjectId) async {
+    if (subjectId == null) return null;
+    final value = await store.preference('preferred-fansub.$subjectId');
+    return value == null || value.isEmpty ? null : value;
+  }
+
+  Future<void> rememberWorkingSource(
+    int subjectId,
+    String sourceId, {
+    String? label,
+  }) async {
+    if (subjectId <= 0 ||
+        sourceId.isEmpty ||
+        sourceId == 'local' ||
+        sourceId == 'legacy-direct') {
+      return;
+    }
+    final config = await store.byId(sourceId);
+    if (config != null &&
+        (config.kind == SourceKind.direct.name ||
+            config.kind == SourceKind.local.name)) {
+      return;
+    }
+    await store.setPreference('preferred-source.$subjectId', sourceId);
+    await store.setPreference('verified-source.$subjectId', sourceId);
+    if (label != null && label.isNotEmpty) {
+      final fansub = ReleaseTitleParser.parse(label).fansub;
+      if (fansub != null && fansub.isNotEmpty) {
+        await store.setPreference('preferred-fansub.$subjectId', fansub);
+      }
+    }
+  }
+
+  Future<void> clearRememberedSource(int subjectId) async {
+    if (subjectId <= 0) return;
+    await store.setPreference('verified-source.$subjectId', '');
+  }
+
+  MatchEvidence _resolveEvidence(
+    MediaSearchRequest request,
+    SourceOffer offer,
+    Map<String, ResourceMatche> recorded,
+    String? rememberedSource,
+  ) {
+    final automatic = matcher.evaluate(request, offer);
+    if (!automatic.rejected && recorded[offer.key]?.confirmed == true) {
+      return MatchEvidence(
+        100,
+        '已记住手动确认的匹配',
+        verified: true,
+        tags: automatic.tags,
+        reasons: const ['已记住手动确认的匹配'],
+        fansub: automatic.fansub,
+        resolution: automatic.resolution,
+        inferredWidth: automatic.inferredWidth,
+        isBatch: automatic.isBatch,
+        version: automatic.version,
+      );
+    }
+    if (!automatic.verified &&
+        !automatic.rejected &&
+        !automatic.isBatch &&
+        rememberedSource != null &&
+        offer.sourceId == rememberedSource &&
+        automatic.score >= 70) {
+      return MatchEvidence(
+        automatic.score,
+        '已记住该番剧可用片源',
+        verified: true,
+        tags: automatic.tags,
+        reasons: ['已记住该番剧可用片源', ...automatic.reasons],
+        fansub: automatic.fansub,
+        resolution: automatic.resolution,
+        inferredWidth: automatic.inferredWidth,
+        isBatch: false,
+        version: automatic.version,
+      );
+    }
+    return automatic;
+  }
+
+  Stream<FetchResult> watch(MediaSearchRequest request) =>
+      _watchWithOptions(request, fastPath: true);
+
+  Stream<FetchResult> watchAll(MediaSearchRequest request) =>
+      _watchWithOptions(request, fastPath: false);
+
+  Stream<FetchResult> _watchWithOptions(
+    MediaSearchRequest request, {
+    required bool fastPath,
+  }) async* {
     final sources = await registry.enabledSources();
+    final subjectId = request.anime?.id;
     final preferred = await store.preference(
-      'preferred-source.${request.anime?.id ?? 0}',
+      'preferred-source.${subjectId ?? 0}',
     );
+    final rememberedSource = await verifiedSource(subjectId);
+    final rememberedFansub = await preferredFansub(subjectId);
     final preferredAudio = await store.preference('media.audio-language');
     final preferredSubtitle = await store.preference('media.subtitle-language');
     final health = await store.health();
     final recorded = await store.matches(request.episodeKey);
     final recordedThisSession = <String>{};
 
-    await for (final result in fetcher.queryStream(request, sources)) {
+    List<RankedOffer> rankItems(List<SourceOffer> rawItems) {
       final matches = <(SourceOffer, MatchEvidence)>[];
-      for (final offer in result.items) {
-        final automatic = matcher.evaluate(request, offer);
-        final evidence =
-            !automatic.rejected && recorded[offer.key]?.confirmed == true
-            ? const MatchEvidence(100, '已记住手动确认的匹配', verified: true)
-            : automatic;
+      for (final offer in rawItems) {
+        final evidence = _resolveEvidence(
+          request,
+          offer,
+          recorded,
+          rememberedSource,
+        );
         if (request.anime != null && recordedThisSession.add(offer.key)) {
           unawaited(store.recordMatch(request.episodeKey, offer.key, evidence));
+        }
+        if (!evidence.rejected) matches.add((offer, evidence));
+      }
+      return selector.rank(
+        matches,
+        health,
+        preferred: preferred,
+        preferredFansub: rememberedFansub,
+        preferredAudio: preferredAudio,
+        preferredSubtitle: preferredSubtitle,
+      );
+    }
+
+    if (rememberedSource != null && request.episode != null) {
+      final primary = [
+        for (final source in sources)
+          if (source.id == rememberedSource) source,
+      ];
+      final rest = [
+        for (final source in sources)
+          if (source.id != rememberedSource) source,
+      ];
+      if (primary.isNotEmpty) {
+        var primaryItems = const <SourceOffer>[];
+        var primaryIssues = const <String, SourceIssue>{};
+        var latestRanked = const <RankedOffer>[];
+        await for (final result in fetcher.queryStream(request, primary)) {
+          primaryItems = result.items;
+          primaryIssues = result.issues;
+          latestRanked = rankItems(primaryItems);
+          yield FetchResult(latestRanked, primaryIssues);
+        }
+        if (fastPath &&
+            latestRanked.any(PlaybackSession.canSelectAutomatically)) {
+          return;
+        }
+        if (rest.isNotEmpty) {
+          await for (final result in fetcher.queryStream(request, rest)) {
+            final combinedItems = [...primaryItems, ...result.items];
+            final combinedIssues = {...primaryIssues, ...result.issues};
+            yield FetchResult(rankItems(combinedItems), combinedIssues);
+          }
+        }
+        return;
+      }
+    }
+
+    await for (final result in fetcher.queryStream(request, sources)) {
+      yield FetchResult(rankItems(result.items), result.issues);
+    }
+  }
+
+  Future<FetchResult> find(MediaSearchRequest request) =>
+      _findWithOptions(request, fastPath: true);
+
+  Future<FetchResult> findAll(MediaSearchRequest request) =>
+      _findWithOptions(request, fastPath: false);
+
+  Future<FetchResult> _findWithOptions(
+    MediaSearchRequest request, {
+    required bool fastPath,
+  }) async {
+    final sources = await registry.enabledSources();
+    final subjectId = request.anime?.id;
+    final preferred = await store.preference(
+      'preferred-source.${subjectId ?? 0}',
+    );
+    final rememberedSource = await verifiedSource(subjectId);
+    final rememberedFansub = await preferredFansub(subjectId);
+    final preferredAudio = await store.preference('media.audio-language');
+    final preferredSubtitle = await store.preference('media.subtitle-language');
+    final health = await store.health();
+    final recorded = await store.matches(request.episodeKey);
+
+    Future<FetchResult> rankResult(
+      List<SourceOffer> rawItems,
+      Map<String, SourceIssue> issues,
+    ) async {
+      final matches = <(SourceOffer, MatchEvidence)>[];
+      for (final offer in rawItems) {
+        final evidence = _resolveEvidence(
+          request,
+          offer,
+          recorded,
+          rememberedSource,
+        );
+        if (request.anime != null) {
+          await store.recordMatch(request.episodeKey, offer.key, evidence);
         }
         if (!evidence.rejected) matches.add((offer, evidence));
       }
@@ -358,50 +554,60 @@ class MediaResolver {
         matches,
         health,
         preferred: preferred,
+        preferredFansub: rememberedFansub,
         preferredAudio: preferredAudio,
         preferredSubtitle: preferredSubtitle,
       );
-      yield FetchResult(items, result.issues);
+      return FetchResult(items, issues);
     }
-  }
 
-  Future<FetchResult> find(MediaSearchRequest request) async {
-    final result = await fetcher.query(
-      request,
-      await registry.enabledSources(),
-    );
-    final recorded = await store.matches(request.episodeKey);
-    final matches = <(SourceOffer, MatchEvidence)>[];
-    for (final offer in result.items) {
-      final automatic = matcher.evaluate(request, offer);
-      final evidence =
-          !automatic.rejected && recorded[offer.key]?.confirmed == true
-          ? const MatchEvidence(100, '已记住手动确认的匹配', verified: true)
-          : automatic;
-      if (request.anime != null) {
-        await store.recordMatch(request.episodeKey, offer.key, evidence);
+    if (rememberedSource != null && request.episode != null) {
+      final primary = [
+        for (final source in sources)
+          if (source.id == rememberedSource) source,
+      ];
+      final rest = [
+        for (final source in sources)
+          if (source.id != rememberedSource) source,
+      ];
+      if (primary.isNotEmpty) {
+        final primaryResult = await fetcher.query(request, primary);
+        final rankedPrimary = await rankResult(
+          primaryResult.items,
+          primaryResult.issues,
+        );
+        if (fastPath &&
+            rankedPrimary.offers.any(PlaybackSession.canSelectAutomatically)) {
+          return rankedPrimary;
+        }
+        if (rest.isEmpty) return rankedPrimary;
+        final restResult = await fetcher.query(request, rest);
+        return rankResult(
+          [...primaryResult.items, ...restResult.items],
+          {...primaryResult.issues, ...restResult.issues},
+        );
       }
-      if (!evidence.rejected) matches.add((offer, evidence));
     }
-    final items = selector.rank(
-      matches,
-      await store.health(),
-      preferred: await store.preference(
-        'preferred-source.${request.anime?.id ?? 0}',
-      ),
-      preferredAudio: await store.preference('media.audio-language'),
-      preferredSubtitle: await store.preference('media.subtitle-language'),
-    );
-    return FetchResult(items, result.issues);
+
+    final result = await fetcher.query(request, sources);
+    return rankResult(result.items, result.issues);
   }
 
-  Future<void> confirm(MediaSearchRequest request, SourceOffer offer) =>
-      store.recordMatch(
-        request.episodeKey,
-        offer.key,
-        const MatchEvidence(100, '手动确认', verified: true),
-        confirmed: true,
+  Future<void> confirm(MediaSearchRequest request, SourceOffer offer) async {
+    await store.recordMatch(
+      request.episodeKey,
+      offer.key,
+      const MatchEvidence(100, '手动确认', verified: true),
+      confirmed: true,
+    );
+    if (request.anime?.id case final subjectId?) {
+      await rememberWorkingSource(
+        subjectId,
+        offer.sourceId,
+        label: offer.label,
       );
+    }
+  }
 
   Future<MediaCandidate> save(
     MediaSearchRequest request,

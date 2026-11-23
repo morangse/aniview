@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/providers.dart';
+import '../../core/theme/app_theme.dart';
 import '../../media/android_media_access.dart';
 import '../../media/media.dart';
 import '../../media/media_kit_playback.dart';
@@ -212,6 +213,14 @@ class _PlayerState extends ConsumerState<_Player> with WidgetsBindingObserver {
         runCommand: _run,
       );
 
+  Future<void> _playPrevious() => PlayerSessionHelper.playPreviousFlow(
+    context: context,
+    candidate: widget.candidate,
+    catalog: ref.read(animeRepositoryProvider),
+    session: widget.session,
+    onSwitch: (req) => _switch(request: req, keepTime: false),
+  );
+
   Future<void> _toggleDanmakuQuick() async {
     final result = await ref
         .read(overlayStoreProvider)
@@ -359,7 +368,13 @@ class _PlayerState extends ConsumerState<_Player> with WidgetsBindingObserver {
         onOpenSettings: () => _openSettings(0),
         onCloseDrawer: _hud.closeDrawer,
         onRetry: () => unawaited(_playback.retry(autoplay: widget.autoplay)),
-        onSwitchSource: _switch,
+        onSwitchSource: () => AdaptiveLayout.isApplePlatform &&
+                _full &&
+                controller != null &&
+                _playback.backendError == null &&
+                controller.value.error == null
+            ? _openSettings(3)
+            : unawaited(_switch()),
         onToggleControls: () => _hud.toggleControls(_inPip),
         onToggleLock: _hud.toggleLock,
         onSkipSeconds: (sec) => PlayerSessionHelper.skipSecondsCommand(
@@ -394,6 +409,9 @@ class _PlayerState extends ConsumerState<_Player> with WidgetsBindingObserver {
         onScheduleHideControls: _hud.scheduleHide,
         onToggleFullscreen: _toggleFullscreen,
         onPlayNext: () => unawaited(_playNext()),
+        onPlayPrevious: widget.candidate.subjectId == null
+            ? null
+            : () => unawaited(_playPrevious()),
         onPlayNextNow: () {
           if (_autoNext.cancel()) setState(() {});
           unawaited(_playNext());
@@ -411,6 +429,7 @@ class _PlayerState extends ConsumerState<_Player> with WidgetsBindingObserver {
       ),
       details: PlayerDetailsArea(
         candidate: widget.candidate,
+        controller: controller,
         onSwitchSource: _switch,
         onOpenEpisodes: _episodes,
         onOpenDanmaku: () => _openSettings(1),
