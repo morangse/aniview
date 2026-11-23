@@ -1,0 +1,28 @@
+00:00 +0: loading C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart
+00:00 +0: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_test.dart: parses a full subject and maintains a persistable representation
+00:00 +1: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_test.dart: lightweight search rows fall back to original names and omit missing fields
+00:00 +2: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_test.dart: episode sort retains decimal specials and localized fallback
+00:00 +3: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_test.dart: search sends official type, tag, date and pagination and caches by query
+00:00 +4: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +5: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +6: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +7: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +8: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +9: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +10: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +11: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +12: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +13: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +14: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +15: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +16: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +17: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +18: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +19: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +20: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:01 +21: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 390.0 dp
+00:01 +22: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 430.0 dp
+00:02 +23: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: content tabs are independent from root tabs, with Android back dispatch
+00:02 +24: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: soft control presses, restores and activates with keyboard
+00:02 +25: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: disabled button skips the press animation and reduced motion disables duration
+00:02 +26: All tests passed!

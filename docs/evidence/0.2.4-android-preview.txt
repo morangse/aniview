@@ -1,0 +1,55 @@
+Running Gradle task 'assembleDebug'...                          
+Warning: Flutter support for your project's Gradle version (8.14.3) will soon be dropped. Please upgrade your Gradle version to a version of at least 9.1.0 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's gradle version is typically defined in the gradle wrapper file. By default, this can be found at C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/gradle/wrapper/gradle-wrapper.properties. 
+For more information, see https://docs.gradle.org/current/userguide/gradle_wrapper.html.
+
+Warning: Flutter support for your project's Android Gradle Plugin version (Android Gradle Plugin version 8.13.1) will soon be dropped. Please upgrade your Android Gradle Plugin version to a version of at least Android Gradle Plugin version 9.0.1 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's AGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of com.android.application. 
+If you don't see a plugins block, your project was likely created with an older template version. In this case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the following line in the dependencies block of the buildscript: "classpath 'com.android.tools.build:gradle:<version>'".
+
+Warning: Flutter support for your project's Kotlin version (2.2.20) will soon be dropped. Please upgrade your Kotlin version to a version of at least 2.3.20 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's KGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of org.jetbrains.kotlin.android. 
+If you don't see a plugins block, your project was likely created with an older template version, in which case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the ext.kotlin_version property.
+
+Running Gradle task 'assembleDebug'...                             37.6s
+√ Built build\app\outputs\flutter-apk\app-debug.apk
+Installing build\app\outputs\flutter-apk\app-debug.apk...           5.0s
+D/gralloc_x86( 5674): gralloc_alloc: Creating ashmem region of size 8298496
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+VMServiceFlutterDriver: Connecting to Flutter application at [VM service URL redacted]
+VMServiceFlutterDriver: Isolate found with number: 6316561079870843
+VMServiceFlutterDriver: Isolate 6316561079870843 is runnable.
+VMServiceFlutterDriver: Isolate is paused at start.
+VMServiceFlutterDriver: Attempting to resume isolate
+I/flutter ( 5674): 00:00 +0: CreamyCake CSS subscription previews from the bare hostname
+VMServiceFlutterDriver: Connected to Flutter application.
+D/gralloc_x86( 5674): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 5674): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 5674): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 5674): gralloc_alloc: Creating ashmem region of size 8298496
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/InputMethodManager( 5674): showSoftInput() view=io.flutter.embedding.android.FlutterView{20f91c6 VFE...... .F....ID 0,0-1920,1080 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+D/InputMethodManager( 5674): showSoftInput() view=io.flutter.embedding.android.FlutterView{20f91c6 VFE...... .F....ID 0,0-1920,1080 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+D/gralloc_x86( 5674): gralloc_alloc: Creating ashmem region of size 8298496
+D/InsetsController( 5674): show(ime(), fromIme=true)
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/gralloc_x86( 5674): gralloc_alloc: Creating ashmem region of size 8298496
+D/InsetsController( 5674): show(ime(), fromIme=true)
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/FlutterJNI( 5674): Sending viewport metrics to the engine.
+D/ProfileInstaller( 5674): Installing profile for app.aniview.android
+I/flutter ( 5674): ANIVIEW_LIVE_CSS_PREVIEW 已读取 21 个片源。当前版本暂无适配的类型。
+I/flutter ( 5674): 00:03 +1: (tearDownAll)
+I/flutter ( 5674): 00:03 +2: All tests passed!
+All tests passed.

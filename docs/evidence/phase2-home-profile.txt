@@ -1,0 +1,69 @@
+Running Gradle task 'assembleProfile'...                        
+Warning: Flutter support for your project's Gradle version (8.14.3) will soon be dropped. Please upgrade your Gradle version to a version of at least 9.1.0 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's gradle version is typically defined in the gradle wrapper file. By default, this can be found at C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/gradle/wrapper/gradle-wrapper.properties. 
+For more information, see https://docs.gradle.org/current/userguide/gradle_wrapper.html.
+
+Warning: Flutter support for your project's Android Gradle Plugin version (Android Gradle Plugin version 8.13.1) will soon be dropped. Please upgrade your Android Gradle Plugin version to a version of at least Android Gradle Plugin version 9.0.1 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's AGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of com.android.application. 
+If you don't see a plugins block, your project was likely created with an older template version. In this case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the following line in the dependencies block of the buildscript: "classpath 'com.android.tools.build:gradle:<version>'".
+
+Warning: Flutter support for your project's Kotlin version (2.2.20) will soon be dropped. Please upgrade your Kotlin version to a version of at least 2.3.20 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's KGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of org.jetbrains.kotlin.android. 
+If you don't see a plugins block, your project was likely created with an older template version, in which case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the ext.kotlin_version property.
+
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+warning: [options] source value 8 is obsolete and will be removed in a future release
+warning: [options] target value 8 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+3 warnings
+Running Gradle task 'assembleProfile'...                           60.9s
+√ Built build\app\outputs\flutter-apk\app-profile.apk (73.9MB)
+Installing build\app\outputs\flutter-apk\app-profile.apk...      2,726ms
+D/aniview.androi(12874): Features: 0 0 0
+E/aniview.androi(12874): vulkan version is 4211029
+W/OpenGLRenderer(12874): Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+E/HidlServiceManagement(12874): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@4.0::IMapper instance: default
+I/Gralloc4(12874): mapper 4.x is not supported
+E/HidlServiceManagement(12874): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@3.0::IMapper instance: default
+W/Gralloc3(12874): mapper 3.x is not supported
+E/HidlServiceManagement(12874): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@2.0::IMapper instance: default
+E/HidlServiceManagement(12874): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@4.0::IAllocator instance: default
+W/Gralloc4(12874): allocator 4.x is not supported
+E/HidlServiceManagement(12874): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@3.0::IAllocator instance: default
+W/Gralloc3(12874): allocator 3.x is not supported
+E/HidlServiceManagement(12874): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@2.0::IAllocator instance: default
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+VMServiceFlutterDriver: Connecting to Flutter application at [Flutter VM 调试地址已隐去]
+VMServiceFlutterDriver: Isolate found with number: 7275208511096515
+VMServiceFlutterDriver: Isolate 7275208511096515 is runnable.
+VMServiceFlutterDriver: Isolate is paused at start.
+VMServiceFlutterDriver: Attempting to resume isolate
+I/flutter (12874): 00:00 +0: sample real Flutter frames while scrolling the populated home
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+VMServiceFlutterDriver: Connected to Flutter application.
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/aniview.androi(12874): Features: 0 0 0
+E/aniview.androi(12874): vulkan version is 4211029
+D/gralloc_x86(12874): gralloc_alloc: Creating ashmem region of size 8298496
+D/ProfileInstaller(12874): Installing profile for app.aniview.android
+I/flutter (12874): ANIVIEW_FRAME_TIMINGS {"frame_count":186,"logical_width_dp":640.0,"build_ms":{"mean":0.27534946236559144,"p50":0.255,"p90":0.365,"p99":0.909,"over_16_67_ms":0},"raster_ms":{"mean":66.48221505376344,"p50":66.502,"p90":67.156,"p99":69.634,"over_16_67_ms":186},"total_span_ms":{"mean":68.74532258064518,"p50":68.593,"p90":69.442,"p99":71.542,"over_16_67_ms":186}}
+I/flutter (12874): 00:17 +1: (tearDownAll)
+I/flutter (12874): 00:17 +2: All tests passed!
+All tests passed.

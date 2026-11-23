@@ -1,0 +1,51 @@
+00:00 +0: loading C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart
+00:00 +0: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +1: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:00 +2: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:01 +3: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/download_manager_test.dart: interrupted download survives manager restart, resumes with Range and opens offline
+00:01 +4: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/download_manager_test.dart: interrupted download survives manager restart, resumes with Range and opens offline
+00:01 +5: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/download_manager_test.dart: interrupted download survives manager restart, resumes with Range and opens offline
+00:01 +6: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/download_manager_test.dart: interrupted download survives manager restart, resumes with Range and opens offline
+00:01 +7: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/download_manager_test.dart: interrupted download survives manager restart, resumes with Range and opens offline
+00:01 +8: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 390.0 dp
+00:01 +9: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 390.0 dp
+00:01 +10: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_test.dart: transient requests retry once, then return explicitly stale catalog data
+00:02 +11: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 430.0 dp
+00:02 +12: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 430.0 dp
+00:02 +13: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 430.0 dp
+00:02 +14: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/media_address_test.dart: rejects ""
+00:02 +15: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +16: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +17: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +18: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +19: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +20: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +21: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +22: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +23: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +24: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +25: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +26: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:02 +27: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:02 +28: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:02 +29: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:02 +30: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:02 +31: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:03 +32: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:03 +33: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:03 +34: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:03 +35: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:03 +36: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:03 +37: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: back cancels navigation while autoplay is still looking up sources
+00:03 +38: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: content tabs are independent from root tabs, with Android back dispatch
+00:03 +39: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: soft control presses, restores and activates with keyboard
+00:03 +40: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: disabled button skips the press animation and reduced motion disables duration
+00:03 +41: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:03 +42: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:03 +43: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:04 +44: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:04 +45: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/subscription_catalog_test.dart: extracts only member names and kinds from the v2 list
+00:04 +46: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/subscription_catalog_test.dart: refresh requests only the built-in JSON endpoints without redirects
+00:04 +47: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/subscription_catalog_test.dart: refuses an oversized manifest and cancels the response
+00:04 +48: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/subscription_catalog_test.dart: both offline member lists open at phone width
+00:05 +49: All tests passed!

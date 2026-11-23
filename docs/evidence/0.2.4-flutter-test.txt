@@ -1,0 +1,70 @@
+00:00 +0: loading C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart
+00:00 +0: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: keeps the keyword inside plain and JSON query values
+00:00 +1: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: shows incompatible Animeko members without enabling them
+00:00 +2: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: queries and resolves an exact episode through the existing player pipeline
+00:07 +3: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_sync_test.dart: sync failure leaves bookmarks intact and never logs the token
+00:07 +4: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_sync_test.dart: sync respects local removals, remote drops and never uploads video seconds
+00:07 +5: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:07 +6: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +7: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +8: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +9: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +10: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +11: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +12: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +13: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +14: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +15: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +16: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:08 +17: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +18: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +19: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +20: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +21: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +22: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +23: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +24: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +25: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +26: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +27: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +28: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +29: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +30: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +31: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +32: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +33: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +34: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +35: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +36: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:09 +37: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +38: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +39: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +40: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +41: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +42: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +43: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +44: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +45: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +46: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +47: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +48: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +49: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +50: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:10 +51: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +52: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +53: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +54: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +55: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +56: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +57: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +58: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +59: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and requires selection and consent
+00:11 +60: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:11 +61: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:11 +62: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/subscription_catalog_test.dart: both offline member lists open at phone width
+00:11 +63: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/subscription_catalog_test.dart: both offline member lists open at phone width
+00:12 +64: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: back cancels navigation while autoplay is still looking up sources
+00:12 +65: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: content tabs are independent from root tabs, with Android back dispatch
+00:12 +66: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: soft control presses, restores and activates with keyboard
+00:12 +67: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: disabled button skips the press animation and reduced motion disables duration
+00:12 +68: All tests passed!

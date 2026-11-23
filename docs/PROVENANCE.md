@@ -1,0 +1,14 @@
+# 资源与依赖来源
+
+- Android 首页布局依据用户提供的 AniView 视觉稿。真实番剧资料与封面通过 Bangumi v0 和其图像 CDN 取得，应用保留可回收的图像缓存。[Bangumi v0](https://github.com/bangumi/api/blob/master/open-api/v0.yaml)
+- `assets/art/lakeside.webp` 是使用内置 ImageGen 生成的原创离线插画，`assets/art/mist.webp` 由同一图像提前缩小与模糊得到。两张图只用作本地播放封面、空态和背景。
+- QA 视频与 HLS 由 FFmpeg 生成色条、测试音和字幕。测试素材不随 APK 安装。[生成脚本](../tool/generate-test-media.ps1)
+- Animeko 用于架构研究。`MediaSourceRegistry`、`EpisodeMatcher`、`PlaybackSession` 以及 UI 是独立 Dart 实现。[Media Framework](https://github.com/open-ani/animeko/blob/main/docs/contributing/code/media-framework.md)
+- CreamyCake 订阅目录快照于 2026-11-19 核实。`bt1.json` 有 2 个 BT 索引，`css1.json` 有 21 个 Web/API 条目。只随应用分发成员名称和类型。维护说明和清单未提供成员的视频播放授权依据。[维护仓库](https://github.com/creamycake-anime/animeko-subs) · [BT 目录](https://sub.creamycake.org/v1/bt1.json) · [Web/API 目录](https://sub.creamycake.org/v1/css1.json)
+- Flutter、go_router、path_provider 和 flutter_secure_storage 是 BSD 系。Riverpod、Dio、Drift、sqlite3 Dart 包及 xml 是 MIT。SQLite 本体为公有领域。版本以 `pubspec.lock` 为准。[SQLite 法律声明](https://sqlite.org/copyright.html)
+- Web 目录读取使用 Dart `html` 0.15.7，附 MIT 文本。其解析依赖 `csslib` 1.0.2 附 BSD-3-Clause 文本，两者均通过应用许可页随 APK 提供。[html 许可](https://github.com/dart-lang/tools/blob/main/pkgs/html/LICENSE) · [csslib 许可](https://github.com/dart-lang/tools/blob/main/pkgs/csslib/LICENSE)
+- media_kit 的 Dart/Android 适配包为 MIT，Android 视频包带入 libmpv v1.1.7 default 构建。上游 mpv 构建脚本明确关闭 GPL 特性，原生库与编解码依赖适用各自授权。库作为独立 `libmpv.so` 动态加载，构建源、许可证和原始制品由上游提供。应用的许可页同时包含原生包附带的通知。发布渠道交付前应核对目标 ABI 的完整原生依赖声明。[构建源](https://github.com/media-kit/libmpv-android-video-build/tree/v1.1.7) · [发布制品](https://github.com/media-kit/libmpv-android-video-build/releases/tag/v1.1.7) · [mpv 许可](https://github.com/mpv-player/mpv/blob/master/Copyright)
+
+## 原创插画生成提示
+
+> Generate a brand-new original 3:2 anime environment illustration for the offline local-video entry card in an Android anime library called AniView. Take the provided app design only as a composition and value reference: crisp illustrated subject toward the right against a luminous blue landscape, calmer dark left side reserved for app UI text, saturated focal area with soft atmospheric depth. Depict an original young adult traveler with short windswept indigo hair, a practical pale blue raincoat and a russet satchel, in three-quarter back view beside a lakefront railway signal; distant mountains and a little empty cobalt railway platform in clear early evening. The traveler is at x=70%, cropped at waist, looking away to the right. Slate-blue shadows frame the lower and left thirds, clean cerulean skies and soft evening clouds upper right, fine cel-animation line art with carefully painted background detail. Japanese animation-inspired original illustration, landscape shot, legible silhouette. No lettering, app elements, logos, existing characters, white-haired elf, castle, or recognizable film/game imagery. Deliver only the art, no interface.

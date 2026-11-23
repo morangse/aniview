@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aniview-bangumi-oauth",
+  "main": "src/worker.mjs",
+  "compatibility_date": "2026-11-18",
+  "durable_objects": {
+    "bindings": [{ "name": "PAIRINGS", "class_name": "Pairing" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Pairing"] }],
+  "ratelimits": [
+    { "name": "AUTH_RATE", "namespace_id": "4201", "simple": { "limit": 30, "period": 60 } }
+  ],
+  "observability": {
+    "enabled": true,
+    "logs": { "invocation_logs": false },
+    "traces": { "enabled": true, "head_sampling_rate": 0.1 }
+  }
+}

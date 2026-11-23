@@ -1,0 +1,158 @@
+Running Gradle task 'assembleDebug'...                          
+Warning: Flutter support for your project's Gradle version (8.14.3) will soon be dropped. Please upgrade your Gradle version to a version of at least 9.1.0 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's gradle version is typically defined in the gradle wrapper file. By default, this can be found at C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/gradle/wrapper/gradle-wrapper.properties. 
+For more information, see https://docs.gradle.org/current/userguide/gradle_wrapper.html.
+
+Warning: Flutter support for your project's Android Gradle Plugin version (Android Gradle Plugin version 8.13.1) will soon be dropped. Please upgrade your Android Gradle Plugin version to a version of at least Android Gradle Plugin version 9.0.1 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's AGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of com.android.application. 
+If you don't see a plugins block, your project was likely created with an older template version. In this case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the following line in the dependencies block of the buildscript: "classpath 'com.android.tools.build:gradle:<version>'".
+
+Warning: Flutter support for your project's Kotlin version (2.2.20) will soon be dropped. Please upgrade your Kotlin version to a version of at least 2.3.20 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's KGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of org.jetbrains.kotlin.android. 
+If you don't see a plugins block, your project was likely created with an older template version, in which case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the ext.kotlin_version property.
+
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+Running Gradle task 'assembleDebug'...                             56.3s
+√ Built build\app\outputs\flutter-apk\app-debug.apk
+Installing build\app\outputs\flutter-apk\app-debug.apk...           5.0s
+I/media_kit( 2897): package:media_kit_libs_android_video attached.
+D/media_kit( 2897): iPad
+D/media_kit( 2897): A2925
+D/media_kit( 2897): iPad/A2925/A2925:12/V417IR/1747:user/release-keys
+D/media_kit( 2897): iPad
+D/media_kit( 2897): A2925
+D/media_kit( 2897): iPad
+D/media_kit( 2897): A2925
+I/media_kit( 2897): Saved application context.
+W/aniview.androi( 2897): Accessing hidden method Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J (unsupported,test-api, reflection, allowed)
+W/aniview.androi( 2897): Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (unsupported, reflection, allowed)
+W/aniview.androi( 2897): Accessing hidden field Landroid/view/accessibility/AccessibilityNodeInfo;->mChildNodeIds:Landroid/util/LongArray; (unsupported, reflection, allowed)
+W/aniview.androi( 2897): Accessing hidden method Landroid/util/LongArray;->get(I)J (unsupported, reflection, allowed)
+D/AccessibilityBridge( 2897): Setting not found: accessibility_display_inversion_enabled, using default: 0
+D/FlutterRenderer( 2897): Width is zero. 0,0
+I/Choreographer( 2897): Skipped 349 frames!  The application may be doing too much work on its main thread.
+D/FlutterRenderer( 2897): Width is zero. 0,0
+D/FlutterRenderer( 2897): Width is zero. 0,0
+D/FlutterJNI( 2897): Sending viewport metrics to the engine.
+D/aniview.androi( 2897): Features: 0 0 0
+E/aniview.androi( 2897): vulkan version is 4211029
+W/OpenGLRenderer( 2897): Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@4.0::IMapper instance: default
+I/Gralloc4( 2897): mapper 4.x is not supported
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@3.0::IMapper instance: default
+W/Gralloc3( 2897): mapper 3.x is not supported
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@2.0::IMapper instance: default
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@4.0::IAllocator instance: default
+W/Gralloc4( 2897): allocator 4.x is not supported
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@3.0::IAllocator instance: default
+W/Gralloc3( 2897): allocator 3.x is not supported
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@2.0::IAllocator instance: default
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 8298496
+I/Choreographer( 2897): Skipped 52 frames!  The application may be doing too much work on its main thread.
+D/FlutterJNI( 2897): Sending viewport metrics to the engine.
+VMServiceFlutterDriver: Connecting to Flutter application at [VM service URL redacted]
+VMServiceFlutterDriver: Isolate found with number: 7550566966947351
+VMServiceFlutterDriver: Isolate 7550566966947351 is runnable.
+VMServiceFlutterDriver: Isolate is paused at start.
+VMServiceFlutterDriver: Attempting to resume isolate
+I/flutter ( 2897): 00:00 +0: Home launches the first regular episode through an imported HLS catalog
+VMServiceFlutterDriver: Connected to Flutter application.
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 8298496
+I/Choreographer( 2897): Skipped 84 frames!  The application may be doing too much work on its main thread.
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 8298496
+D/FlutterJNI( 2897): Sending viewport metrics to the engine.
+I/flutter ( 2897): ANIVIEW_IMPORTED_SOURCES JSON RSS Web
+I/flutter ( 2897): media_kit: NativeReferenceHolder: Allocated 124547466455936
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.create: 124545584305344
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.dispose: 124545584305344
+D/MtpDeviceJNI( 2897): register_android_mtp_MtpDevice
+I/VideoOutput( 2897): onSurfaceCleanup
+I/flutter ( 2897): VideoOutput.Resize
+I/flutter ( 2897): {rect: {top: 0, left: 0, width: 1, height: 1}, wid: 0, handle: 124545584305344, id: 0}
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.create: 124545584701984
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.media.omx@1.0::IOmx instance: default
+I/OMXClient( 2897): IOmx service obtained
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.memory@1.0::IMapper instance: ashmem
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.setSurfaceSize: 124545584701984 480 270
+I/VideoOutput( 2897): onSurfaceAvailable
+I/VideoOutput( 2897): newGlobalRef: object = Surface(name=null)/@0x21e7ef3
+I/flutter ( 2897): VideoOutput.Resize
+D/aniview.androi( 2897): PlayerBase::PlayerBase()
+D/aniview.androi( 2897): TrackPlayerBase::TrackPlayerBase()
+I/libOpenSLES( 2897): Emulating old channel mask behavior (ignoring positional mask 0x3, using default mask 0x3 based on channel count of 2)
+I/flutter ( 2897): {rect: {top: 0, left: 0, width: 480, height: 270}, wid: 5606, handle: 124545584701984, id: 1}
+I/AudioTrack( 2897): createTrack_l(0): AUDIO_OUTPUT_FLAG_FAST successful; frameCount 0 -> 4096
+E/libOpenSLES( 2897): Configuration error: unknown key
+W/libOpenSLES( 2897): Leaving AndroidConfiguration::GetConfiguration (SL_RESULT_PARAMETER_INVALID)
+D/aniview.androi( 2897): PlayerBase::stop() from IPlayer
+D/AudioTrack( 2897): stop(8): called with 0 frames delivered
+D/aniview.androi( 2897): Features: 0 0 0
+E/aniview.androi( 2897): vulkan version is 4211029
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.media.omx@1.0::IOmx instance: default
+I/OMXClient( 2897): IOmx service obtained
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+D/ImageReaderSurfaceProducer( 2897): ImageTextureEntry can't wait on the fence on Android < 33
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+D/ProfileInstaller( 2897): Installing profile for app.aniview.android
+D/AudioTrack( 2897): stop(8): called with 76288 frames delivered
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.dispose: 124545584701984
+I/VideoOutput( 2897): onSurfaceCleanup
+I/flutter ( 2897): VideoOutput.Resize
+I/flutter ( 2897): {rect: {top: 0, left: 0, width: 480, height: 270}, wid: 0, handle: 124545584701984, id: 1}
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.create: 124545584205296
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.media.omx@1.0::IOmx instance: default
+I/OMXClient( 2897): IOmx service obtained
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+D/aniview.androi( 2897): PlayerBase::PlayerBase()
+D/aniview.androi( 2897): TrackPlayerBase::TrackPlayerBase()
+I/libOpenSLES( 2897): Emulating old channel mask behavior (ignoring positional mask 0x3, using default mask 0x3 based on channel count of 2)
+I/AudioTrack( 2897): createTrack_l(0): AUDIO_OUTPUT_FLAG_FAST successful; frameCount 0 -> 4096
+E/libOpenSLES( 2897): Configuration error: unknown key
+W/libOpenSLES( 2897): Leaving AndroidConfiguration::GetConfiguration (SL_RESULT_PARAMETER_INVALID)
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.setSurfaceSize: 124545584205296 480 270
+I/VideoOutput( 2897): onSurfaceAvailable
+I/VideoOutput( 2897): newGlobalRef: object = Surface(name=null)/@0x4c1be34
+I/flutter ( 2897): VideoOutput.Resize
+I/flutter ( 2897): {rect: {top: 0, left: 0, width: 480, height: 270}, wid: 5626, handle: 124545584205296, id: 2}
+D/aniview.androi( 2897): PlayerBase::stop() from IPlayer
+D/AudioTrack( 2897): stop(9): called with 0 frames delivered
+D/aniview.androi( 2897): Features: 0 0 0
+E/aniview.androi( 2897): vulkan version is 4211029
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hardware.media.omx@1.0::IOmx instance: default
+I/OMXClient( 2897): IOmx service obtained
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+E/HidlServiceManagement( 2897): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+I/flutter ( 2897): ANIVIEW_HLS_FAILOVER saved_position_ms=22721
+I/flutter ( 2897): ANIVIEW_HLS_RESUMED restored_position_ms=22721
+D/gralloc_x86( 2897): gralloc_alloc: Creating ashmem region of size 520192
+I/flutter ( 2897): 00:06 +1: Android download resumes an interrupted HTTP transfer and verifies the offline file
+I/VideoOutputManager( 2897): com.alexmercerind.media_kit_video.VideoOutputManager.dispose: 124545584205296
+I/VideoOutput( 2897): onSurfaceCleanup
+I/flutter ( 2897): 00:06 +1: Home launches the first regular episode through an imported HLS catalog
+I/flutter ( 2897): VideoOutput.Resize
+I/flutter ( 2897): {rect: {top: 0, left: 0, width: 480, height: 270}, wid: 0, handle: 124545584205296, id: 2}
+I/flutter ( 2897): 00:08 +1: Android download resumes an interrupted HTTP transfer and verifies the offline file
+I/flutter ( 2897): ANIVIEW_ANDROID_RANGE partial=65536 complete=2321044
+I/flutter ( 2897): 00:08 +2: (tearDownAll)
+I/flutter ( 2897): 00:08 +3: All tests passed!
+All tests passed.

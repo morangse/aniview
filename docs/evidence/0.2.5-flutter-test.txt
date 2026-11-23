@@ -1,0 +1,73 @@
+00:00 +0: loading C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_playable_sources_test.dart
+00:00 +0: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_playable_sources_test.dart: imports and resolves Web and JSON API episode candidates
+00:00 +1: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: keeps the keyword inside plain and JSON query values
+00:00 +2: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: keeps the keyword inside plain and JSON query values
+00:00 +3: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: keeps the keyword inside plain and JSON query values
+00:00 +4: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: shows incompatible Animeko members without enabling them
+00:00 +5: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/animeko_rss_source_test.dart: queries and resolves an exact episode through the existing player pipeline
+00:08 +6: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:10 +7: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:10 +8: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 360.0 dp
+00:10 +9: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 390.0 dp
+00:10 +10: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 390.0 dp
+00:10 +11: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_entries_test.dart: RSS keeps qualified IDs and ignores torrents and untrusted metadata
+00:10 +12: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 430.0 dp
+00:10 +13: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 430.0 dp
+00:10 +14: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: home, detail and insets at 430.0 dp
+00:11 +15: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:11 +16: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:11 +17: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: detail Play opens the player for the first regular episode automatically
+00:11 +18: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: does not offer automatic selection for a blocked source
+00:11 +19: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: does not offer automatic selection for a blocked source
+00:11 +20: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: does not offer automatic selection for a blocked source
+00:11 +21: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: does not offer automatic selection for a blocked source
+00:11 +22: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_test.dart: search sends official type, tag, date and pagination and caches by query
+00:11 +23: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: back cancels navigation while autoplay is still looking up sources
+00:11 +24: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/bangumi_test.dart: transient requests retry once, then return explicitly stale catalog data
+00:12 +25: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: content tabs are independent from root tabs, with Android back dispatch
+00:12 +26: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: content tabs are independent from root tabs, with Android back dispatch
+00:12 +27: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: soft control presses, restores and activates with keyboard
+00:12 +28: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/app_widgets_test.dart: disabled button skips the press animation and reduced motion disables duration
+00:12 +29: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: previews the bare CreamyCake address over HTTPS
+00:12 +30: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: rejects invalid subscription addresses before making a request
+00:12 +31: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: reads only supported manifest fields and makes stable local IDs
+00:12 +32: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: rejects duplicate IDs, callbacks, magnets and unsafe endpoints
+00:12 +33: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: imports reviewed entries once and preserves previous settings
+00:12 +34: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and imports selected sources
+00:13 +35: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and imports selected sources
+00:13 +36: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/catalog_subscription_test.dart: preview requests only the manifest and imports selected sources
+00:14 +37: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +38: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +39: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +40: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +41: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +42: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +43: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +44: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +45: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +46: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +47: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +48: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +49: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:14 +50: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:18 +51: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:18 +52: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:18 +53: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:18 +54: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:19 +55: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:19 +56: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:20 +57: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:20 +58: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/local_library_test.dart: favorites, episode sources, settings and progress survive a database reopen
+00:21 +59: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/overlays_test.dart: SRT overlaps, millisecond offsets and WebVTT positioning syntax
+00:21 +60: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/overlays_test.dart: local danmaku has three modes, blocks words and caps the visible count
+00:21 +61: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/overlays_test.dart: subtitle binding and danmaku on/off are durable across source changes for one episode
+00:22 +62: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:25 +63: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:25 +64: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:25 +65: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:26 +66: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:28 +67: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:28 +68: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:28 +69: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:28 +70: C:/Users/ran/Downloads/dust2-v5.1-source/aniview/test/schema_migration_test.dart: v1 database gains phase 2 tables without changing existing IDs or progress
+00:29 +71: All tests passed!

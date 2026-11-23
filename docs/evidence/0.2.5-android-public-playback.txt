@@ -1,0 +1,121 @@
+Running Gradle task 'assembleDebug'...                          
+Warning: Flutter support for your project's Gradle version (8.14.3) will soon be dropped. Please upgrade your Gradle version to a version of at least 9.1.0 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's gradle version is typically defined in the gradle wrapper file. By default, this can be found at C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/gradle/wrapper/gradle-wrapper.properties. 
+For more information, see https://docs.gradle.org/current/userguide/gradle_wrapper.html.
+
+Warning: Flutter support for your project's Android Gradle Plugin version (Android Gradle Plugin version 8.13.1) will soon be dropped. Please upgrade your Android Gradle Plugin version to a version of at least Android Gradle Plugin version 9.0.1 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's AGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of com.android.application. 
+If you don't see a plugins block, your project was likely created with an older template version. In this case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the following line in the dependencies block of the buildscript: "classpath 'com.android.tools.build:gradle:<version>'".
+
+Warning: Flutter support for your project's Kotlin version (2.2.20) will soon be dropped. Please upgrade your Kotlin version to a version of at least 2.3.20 soon.
+Alternatively, use the flag "--android-skip-build-dependency-validation" to bypass this check.
+
+Potential fix: Your project's KGP version is typically defined in the plugins block of the `settings.gradle` file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/settings.gradle), by a plugin with the id of org.jetbrains.kotlin.android. 
+If you don't see a plugins block, your project was likely created with an older template version, in which case it is most likely defined in the top-level build.gradle file (C:\Users\ran\Downloads\dust2-v5.1-source\aniview\android/build.gradle) by the ext.kotlin_version property.
+
+Running Gradle task 'assembleDebug'...                             42.9s
+√ Built build\app\outputs\flutter-apk\app-debug.apk
+Installing build\app\outputs\flutter-apk\app-debug.apk...           7.5s
+I/media_kit( 6786): package:media_kit_libs_android_video attached.
+D/media_kit( 6786): iPad
+D/media_kit( 6786): A2925
+D/media_kit( 6786): iPad/A2925/A2925:12/V417IR/1747:user/release-keys
+D/media_kit( 6786): iPad
+D/media_kit( 6786): A2925
+D/media_kit( 6786): iPad
+D/media_kit( 6786): A2925
+I/media_kit( 6786): Saved application context.
+W/aniview.androi( 6786): Accessing hidden method Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J (unsupported,test-api, reflection, allowed)
+W/aniview.androi( 6786): Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (unsupported, reflection, allowed)
+W/aniview.androi( 6786): Accessing hidden field Landroid/view/accessibility/AccessibilityNodeInfo;->mChildNodeIds:Landroid/util/LongArray; (unsupported, reflection, allowed)
+W/aniview.androi( 6786): Accessing hidden method Landroid/util/LongArray;->get(I)J (unsupported, reflection, allowed)
+D/AccessibilityBridge( 6786): Setting not found: accessibility_display_inversion_enabled, using default: 0
+D/FlutterRenderer( 6786): Width is zero. 0,0
+I/Choreographer( 6786): Skipped 56 frames!  The application may be doing too much work on its main thread.
+D/FlutterRenderer( 6786): Width is zero. 0,0
+D/FlutterRenderer( 6786): Width is zero. 0,0
+D/FlutterJNI( 6786): Sending viewport metrics to the engine.
+D/aniview.androi( 6786): Features: 0 0 0
+E/aniview.androi( 6786): vulkan version is 4211029
+W/OpenGLRenderer( 6786): Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@4.0::IMapper instance: default
+I/Gralloc4( 6786): mapper 4.x is not supported
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@3.0::IMapper instance: default
+W/Gralloc3( 6786): mapper 3.x is not supported
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.graphics.mapper@2.0::IMapper instance: default
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@4.0::IAllocator instance: default
+W/Gralloc4( 6786): allocator 4.x is not supported
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@3.0::IAllocator instance: default
+W/Gralloc3( 6786): allocator 3.x is not supported
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.graphics.allocator@2.0::IAllocator instance: default
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/FlutterJNI( 6786): Sending viewport metrics to the engine.
+VMServiceFlutterDriver: Connecting to Flutter application at [local URL redacted]
+VMServiceFlutterDriver: Isolate found with number: 669370652654007
+VMServiceFlutterDriver: Isolate 669370652654007 is runnable.
+VMServiceFlutterDriver: Isolate is paused at start.
+VMServiceFlutterDriver: Attempting to resume isolate
+I/flutter ( 6786): 00:00 +0: public CSS subscription imports and plays the first episode
+VMServiceFlutterDriver: Connected to Flutter application.
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/FlutterJNI( 6786): Sending viewport metrics to the engine.
+I/flutter ( 6786): ANIVIEW_CSS_IMPORTABLE 20/21
+D/ProfileInstaller( 6786): Installing profile for app.aniview.android
+I/flutter ( 6786): media_kit: NativeReferenceHolder: Allocated 124547465353920
+I/VideoOutputManager( 6786): com.alexmercerind.media_kit_video.VideoOutputManager.create: 124545584670608
+D/MtpDeviceJNI( 6786): register_android_mtp_MtpDevice
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.media.omx@1.0::IOmx instance: default
+I/OMXClient( 6786): IOmx service obtained
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hidl.memory@1.0::IMapper instance: ashmem
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+D/aniview.androi( 6786): PlayerBase::PlayerBase()
+D/aniview.androi( 6786): TrackPlayerBase::TrackPlayerBase()
+I/libOpenSLES( 6786): Emulating old channel mask behavior (ignoring positional mask 0x3, using default mask 0x3 based on channel count of 2)
+I/AudioTrack( 6786): createTrack_l(28996): AUDIO_OUTPUT_FLAG_FAST successful; frameCount 0 -> 4096
+D/aniview.androi( 6786): PlayerBase::stop() from IPlayer
+D/AudioTrack( 6786): stop(11): called with 0 frames delivered
+E/libOpenSLES( 6786): Configuration error: unknown key
+W/libOpenSLES( 6786): Leaving AndroidConfiguration::GetConfiguration (SL_RESULT_PARAMETER_INVALID)
+I/VideoOutputManager( 6786): com.alexmercerind.media_kit_video.VideoOutputManager.setSurfaceSize: 124545584670608 1920 1080
+I/VideoOutput( 6786): onSurfaceAvailable
+I/VideoOutput( 6786): newGlobalRef: object = Surface(name=null)/@0x55da161
+I/flutter ( 6786): VideoOutput.Resize
+I/flutter ( 6786): {rect: {top: 0, left: 0, width: 1920, height: 1080}, wid: 5686, handle: 124545584670608, id: 0}
+D/aniview.androi( 6786): Features: 0 0 0
+E/aniview.androi( 6786): vulkan version is 4211029
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/MediaCodec( 6786): MediaCodec::reclaim(0x7146776733e0) OMX.qcom.video.decoder.avc
+D/MediaCodec( 6786): MediaCodec looper is gone, skip reclaim
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hardware.media.omx@1.0::IOmx instance: default
+I/OMXClient( 6786): IOmx service obtained
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+E/HidlServiceManagement( 6786): getService: Potential race detected, descriptor: android.hidl.allocator@1.0::IAllocator instance: ashmem
+D/aniview.androi( 6786): PlayerBase::stop() from IPlayer
+D/AudioTrack( 6786): stop(11): called with 6144 frames delivered
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/ImageReaderSurfaceProducer( 6786): ImageTextureEntry can't wait on the fence on Android < 33
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+D/gralloc_x86( 6786): gralloc_alloc: Creating ashmem region of size 8298496
+I/flutter ( 6786): ANIVIEW_PUBLIC_PLAYBACK 魔法少女小圆 第 1 集 duration=1540266s
+D/aniview.androi( 6786): PlayerBase::stop() from IPlayer
+D/AudioTrack( 6786): stop(11): called with 20992 frames delivered
+I/VideoOutputManager( 6786): com.alexmercerind.media_kit_video.VideoOutputManager.dispose: 124545584670608
+I/VideoOutput( 6786): onSurfaceCleanup
+I/flutter ( 6786): VideoOutput.Resize
+I/flutter ( 6786): {rect: {top: 0, left: 0, width: 1920, height: 1080}, wid: 0, handle: 124545584670608, id: 0}
+I/flutter ( 6786): 00:15 +1: (tearDownAll)
+I/flutter ( 6786): 00:15 +2: All tests passed!
+All tests passed.
