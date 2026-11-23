@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../core/theme/app_theme.dart';
 import '../core/widgets/common.dart';
+import '../core/widgets/liquid_glass.dart';
 import '../core/widgets/soft_controls.dart';
 import '../features/anime/anime.dart';
 import '../features/anime/anime_screen.dart';
@@ -124,6 +125,7 @@ class _AniViewAppState extends State<AniViewApp> {
   Widget build(BuildContext context) => MaterialApp.router(
     title: 'AniView',
     theme: AppTheme.dim,
+    scrollBehavior: const _AdaptiveScrollBehavior(),
     debugShowCheckedModeBanner: false,
     locale: const Locale('zh', 'CN'),
     supportedLocales: const [Locale('zh', 'CN'), Locale('en')],
@@ -136,57 +138,97 @@ class _AniViewAppState extends State<AniViewApp> {
   );
 }
 
+class _AdaptiveScrollBehavior extends MaterialScrollBehavior {
+  const _AdaptiveScrollBehavior();
+
+  @override
+  ScrollPhysics getScrollPhysics(BuildContext context) =>
+      AdaptiveLayout.isApplePlatform
+      ? const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics())
+      : super.getScrollPhysics(context);
+}
+
 class _Shell extends StatelessWidget {
   const _Shell({required this.navigation});
   final StatefulNavigationShell navigation;
 
+  void _selectBranch(int index) {
+    FocusManager.instance.primaryFocus?.unfocus();
+    navigation.goBranch(
+      index,
+      initialLocation: index == navigation.currentIndex,
+    );
+  }
+
   @override
-  Widget build(BuildContext context) => PopScope(
-    canPop: navigation.currentIndex == 0,
-    onPopInvokedWithResult: (popped, _) {
-      if (!popped && navigation.currentIndex != 0) {
-        FocusManager.instance.primaryFocus?.unfocus();
-        navigation.goBranch(0);
-      }
-    },
-    child: Stack(
-      children: [
-        Positioned.fill(child: navigation),
-        if (MediaQuery.viewInsetsOf(context).bottom == 0)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: SafeArea(
-              top: false,
-              minimum: const EdgeInsets.only(
-                left: SpacingTokens.sm,
-                right: SpacingTokens.sm,
-                bottom: SpacingTokens.xs,
-              ),
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: LayoutTokens.contentMax,
-                  ),
-                  child: GlassNavigationBar(
-                    key: const ValueKey('glass-nav'),
-                    index: navigation.currentIndex,
-                    onSelect: (index) {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      navigation.goBranch(
-                        index,
-                        initialLocation: index == navigation.currentIndex,
-                      );
-                    },
+  Widget build(BuildContext context) {
+    final useRail = AdaptiveLayout.useSideRail(context);
+    return PopScope(
+      canPop: navigation.currentIndex == 0,
+      onPopInvokedWithResult: (popped, _) {
+        if (!popped && navigation.currentIndex != 0) {
+          FocusManager.instance.primaryFocus?.unfocus();
+          navigation.goBranch(0);
+        }
+      },
+      child: useRail
+          ? Row(
+              children: [
+                SafeArea(
+                  right: false,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      SpacingTokens.sm,
+                      SpacingTokens.sm,
+                      SpacingTokens.xs,
+                      SpacingTokens.sm,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: LiquidGlassRail(
+                        key: const ValueKey('liquid-glass-rail'),
+                        index: navigation.currentIndex,
+                        onSelect: _selectBranch,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Expanded(child: navigation),
+              ],
+            )
+          : Stack(
+              children: [
+                Positioned.fill(child: navigation),
+                if (MediaQuery.viewInsetsOf(context).bottom == 0)
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: SafeArea(
+                      top: false,
+                      minimum: const EdgeInsets.only(
+                        left: SpacingTokens.sm,
+                        right: SpacingTokens.sm,
+                        bottom: SpacingTokens.xs,
+                      ),
+                      child: Center(
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: LayoutTokens.contentMax,
+                          ),
+                          child: GlassNavigationBar(
+                            key: const ValueKey('glass-nav'),
+                            index: navigation.currentIndex,
+                            onSelect: _selectBranch,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-          ),
-      ],
-    ),
-  );
+    );
+  }
 }
 
 class _MissingRoute extends StatelessWidget {

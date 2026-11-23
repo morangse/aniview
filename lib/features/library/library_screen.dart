@@ -132,43 +132,31 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                     icon: Icons.filter_list_off_rounded,
                     title: '当前分类暂无条目',
                     message: '没有标记为「${_filter!.label}」的番剧。',
-                  ),
-                for (final entry in filtered)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
-                    child: AnimeResultRow(
-                      anime: entry.anime,
-                      subtitle: [
-                        entry.status.label,
-                        if (entry.rating != null) '${entry.rating} 分',
-                        lastBySubject[entry.anime.id]?.description ?? '尚未观看',
-                      ].join(' · '),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconCapsuleButton(
-                            icon: Icons.edit_outlined,
-                            label: '编辑收藏 ${entry.anime.title}',
-                            style: SoftStyle.clear,
-                            onPressed: () => showCollectionSheet(
-                              context,
-                              ref,
-                              entry.anime,
-                              entry,
-                            ),
-                          ),
-                          if (lastBySubject[entry.anime.id] case final recent?)
-                            IconCapsuleButton(
-                              icon: Icons.play_arrow_rounded,
-                              label: '继续播放 ${entry.anime.title}',
-                              style: SoftStyle.clear,
-                              onPressed: () =>
-                                  context.push('/player/${recent.media.id}'),
-                            ),
-                        ],
-                      ),
+                  )
+                else if (AdaptiveLayout.useSideRail(context))
+                  GridView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: filtered.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisExtent: 108,
+                          crossAxisSpacing: SpacingTokens.xs,
+                          mainAxisSpacing: SpacingTokens.xs,
+                        ),
+                    itemBuilder: (_, index) {
+                      final entry = filtered[index];
+                      return _buildFavoriteRow(context, entry, lastBySubject);
+                    },
+                  )
+                else
+                  for (final entry in filtered)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: SpacingTokens.xs),
+                      child: _buildFavoriteRow(context, entry, lastBySubject),
                     ),
-                  ),
               ];
             },
           ),
@@ -176,6 +164,38 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       ),
     );
   }
+
+  Widget _buildFavoriteRow(
+    BuildContext context,
+    FavoriteEntry entry,
+    Map<int, WatchEntry> lastBySubject,
+  ) => AnimeResultRow(
+    anime: entry.anime,
+    subtitle: [
+      entry.status.label,
+      if (entry.rating != null) '${entry.rating} 分',
+      lastBySubject[entry.anime.id]?.description ?? '尚未观看',
+    ].join(' · '),
+    trailing: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconCapsuleButton(
+          icon: Icons.edit_outlined,
+          label: '编辑收藏 ${entry.anime.title}',
+          style: SoftStyle.clear,
+          onPressed: () =>
+              showCollectionSheet(context, ref, entry.anime, entry),
+        ),
+        if (lastBySubject[entry.anime.id] case final recent?)
+          IconCapsuleButton(
+            icon: Icons.play_arrow_rounded,
+            label: '继续播放 ${entry.anime.title}',
+            style: SoftStyle.clear,
+            onPressed: () => context.push('/player/${recent.media.id}'),
+          ),
+      ],
+    ),
+  );
 }
 
 class HistoryScreen extends ConsumerWidget {

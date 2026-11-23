@@ -1,8 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../theme/app_theme.dart';
+import 'liquid_glass.dart';
 
 enum SoftStyle { accent, surface, outline, clear }
 
@@ -171,7 +171,14 @@ class _SoftActionState extends State<SoftAction> {
         },
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: widget.onPressed,
+          onTap: widget.onPressed == null
+              ? null
+              : () {
+                  if (AdaptiveLayout.isApplePlatform) {
+                    HapticFeedback.selectionClick();
+                  }
+                  widget.onPressed!();
+                },
           onTapDown: enabled ? (_) => _press(true) : null,
           onTapUp: enabled ? (_) => _press(false) : null,
           onTapCancel: enabled ? () => _press(false) : null,
@@ -243,72 +250,84 @@ class GlassNavigationBar extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) => DecoratedBox(
-    decoration: const BoxDecoration(
-      borderRadius: RadiusTokens.panel,
-      boxShadow: ShadowTokens.floating,
-    ),
-    child: ClipRRect(
-      borderRadius: RadiusTokens.panel,
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: RadiusTokens.panel,
-            border: Border.all(color: ColorTokens.border),
-            gradient: const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [ColorTokens.glass, Color(0xF01A2938)],
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(SpacingTokens.xxs),
-            child: Row(
-              children: List.generate(_items.length, (i) {
-                final (regular, active, label) = _items[i];
-                final selected = i == index;
-                return Expanded(
-                  child: SoftAction(
-                    key: ValueKey('nav-$i'),
-                    selected: selected,
-                    style: SoftStyle.clear,
-                    radius: RadiusTokens.card,
-                    onPressed: () => onSelect(i),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: SpacingTokens.xs,
+  Widget build(BuildContext context) {
+    final safeIndex = index.clamp(0, _items.length - 1);
+    final duration = MotionTokens.resolve(
+      context,
+      const Duration(milliseconds: 220),
+    );
+    return LiquidGlassSurface(
+      radius: RadiusTokens.pill,
+      blur: 20,
+      elevated: true,
+      padding: const EdgeInsets.all(SpacingTokens.xxs),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final itemWidth = constraints.maxWidth / _items.length;
+          return SizedBox(
+            height: 58,
+            child: Stack(
+              children: [
+                AnimatedPositioned(
+                  duration: duration,
+                  curve: Curves.easeOutCubic,
+                  left: itemWidth * safeIndex,
+                  top: 0,
+                  bottom: 0,
+                  width: itemWidth,
+                  child: const LiquidGlassLensDecoration(),
+                ),
+                Row(
+                  children: List.generate(_items.length, (i) {
+                    final (regular, active, label) = _items[i];
+                    final selected = i == safeIndex;
+                    return Expanded(
+                      child: SoftAction(
+                        key: ValueKey('nav-$i'),
+                        label: label,
+                        selected: selected,
+                        style: SoftStyle.clear,
+                        radius: RadiusTokens.pill,
+                        onPressed: () {
+                          if (!selected && !AdaptiveLayout.isApplePlatform) {
+                            HapticFeedback.selectionClick();
+                          }
+                          onSelect(i);
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              selected ? active : regular,
+                              size: 22,
+                              color: selected
+                                  ? ColorTokens.accent
+                                  : ColorTokens.muted,
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              label,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: selected
+                                        ? ColorTokens.text
+                                        : ColorTokens.muted,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            selected ? active : regular,
-                            size: 23,
-                            color: selected
-                                ? ColorTokens.accent
-                                : ColorTokens.muted,
-                          ),
-                          const SizedBox(height: SpacingTokens.xxs),
-                          Text(
-                            label,
-                            style: Theme.of(context).textTheme.labelMedium!
-                                .copyWith(
-                                  color: selected
-                                      ? ColorTokens.accent
-                                      : ColorTokens.muted,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
+                ),
+              ],
             ),
-          ),
-        ),
+          );
+        },
       ),
-    ),
-  );
+    );
+  }
 }

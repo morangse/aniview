@@ -184,8 +184,8 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
         bottom: false,
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: LayoutTokens.contentMax,
+            constraints: BoxConstraints(
+              maxWidth: AdaptiveLayout.contentMaxWidth(context),
             ),
             child: CustomScrollView(
               controller: _scroll,
@@ -296,13 +296,26 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
                 ),
                 SliverPadding(
                   padding: SpacingTokens.horizontal,
-                  sliver: SliverList.separated(
-                    itemCount: _results.length,
-                    separatorBuilder: (_, _) =>
-                        const SizedBox(height: SpacingTokens.xs),
-                    itemBuilder: (_, index) =>
-                        AnimeResultRow(anime: _results[index]),
-                  ),
+                  sliver: AdaptiveLayout.useSideRail(context)
+                      ? SliverGrid.builder(
+                          itemCount: _results.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisExtent: 108,
+                                crossAxisSpacing: SpacingTokens.xs,
+                                mainAxisSpacing: SpacingTokens.xs,
+                              ),
+                          itemBuilder: (_, index) =>
+                              AnimeResultRow(anime: _results[index]),
+                        )
+                      : SliverList.separated(
+                          itemCount: _results.length,
+                          separatorBuilder: (_, _) =>
+                              const SizedBox(height: SpacingTokens.xs),
+                          itemBuilder: (_, index) =>
+                              AnimeResultRow(anime: _results[index]),
+                        ),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -310,7 +323,9 @@ class _DiscoverScreenState extends ConsumerState<DiscoverScreen> {
                       SpacingTokens.md,
                       SpacingTokens.md,
                       SpacingTokens.md,
-                      (_isSearch ? LayoutTokens.navReserve : SpacingTokens.lg) +
+                      (_isSearch && !AdaptiveLayout.useSideRail(context)
+                              ? LayoutTokens.navReserve
+                              : SpacingTokens.lg) +
                           MediaQuery.paddingOf(context).bottom,
                     ),
                     child: _failure != null && _results.isEmpty

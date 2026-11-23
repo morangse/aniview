@@ -60,20 +60,27 @@ class AndroidMediaAccess implements PlayerDeviceBridge {
     final result = await _channel.invokeMapMethod<String, String>(method);
     if (result == null) return null;
     final uri = Uri.tryParse(result['uri'] ?? '');
-    if (uri == null || !uri.isScheme('content') || uri.host.isEmpty) {
-      throw const FormatException('Android 未能返回可读取的视频文件。');
+    final validContent =
+        uri != null && uri.isScheme('content') && uri.host.isNotEmpty;
+    final validFile =
+        uri != null && uri.isScheme('file') && uri.path.isNotEmpty;
+    if (!validContent && !validFile) {
+      throw const FormatException('未能返回可读取的本地文件。');
     }
     return (uri: uri, name: result['name'] ?? '本地视频');
   }
 
   @override
   Future<void> setFullscreen(bool full) async {
+    final isApple = defaultTargetPlatform == TargetPlatform.iOS;
     await SystemChrome.setPreferredOrientations(
       full
           ? const [
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
             ]
+          : isApple
+          ? const []
           : const [DeviceOrientation.portraitUp],
     );
     await _channel.invokeMethod<void>('setFullscreen', full);

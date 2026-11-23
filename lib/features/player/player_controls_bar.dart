@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/common.dart';
+import '../../core/widgets/liquid_glass.dart';
 import '../../core/widgets/soft_controls.dart';
 import '../../media/media.dart';
 import '../../media/playback_controller.dart';
@@ -82,22 +83,36 @@ class PlayerHeader extends StatelessWidget {
                 ],
               ),
             ),
-            if (supportsPip && onEnterPip != null)
-              IconButton(
-                key: const ValueKey('pip-button'),
-                icon: const Icon(
-                  Icons.picture_in_picture_alt_rounded,
-                  color: Colors.white,
+            if ((supportsPip && onEnterPip != null) || onOpenSettings != null)
+              LiquidGlassSurface(
+                radius: RadiusTokens.pill,
+                blur: 14,
+                tint: ColorTokens.glassTint.withValues(alpha: 0.72),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (supportsPip && onEnterPip != null)
+                      IconButton(
+                        key: const ValueKey('pip-button'),
+                        icon: const Icon(
+                          Icons.picture_in_picture_alt_rounded,
+                          color: Colors.white,
+                        ),
+                        tooltip: '画中画',
+                        onPressed: onEnterPip,
+                      ),
+                    if (onOpenSettings != null)
+                      IconButton(
+                        key: const ValueKey('player-settings-button'),
+                        icon: const Icon(
+                          Icons.tune_rounded,
+                          color: Colors.white,
+                        ),
+                        tooltip: '设置',
+                        onPressed: onOpenSettings,
+                      ),
+                  ],
                 ),
-                tooltip: '画中画',
-                onPressed: onEnterPip,
-              ),
-            if (onOpenSettings != null)
-              IconButton(
-                key: const ValueKey('player-settings-button'),
-                icon: const Icon(Icons.tune_rounded, color: Colors.white),
-                tooltip: '设置',
-                onPressed: onOpenSettings,
               ),
           ],
         ),
@@ -282,19 +297,18 @@ class _PlayerControlsFooterState extends State<PlayerControlsFooter> {
     );
 
     if (!widget.full) {
-      return DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.transparent, Colors.black54],
-          ),
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(
+          SpacingTokens.xs,
+          0,
+          SpacingTokens.xs,
+          SpacingTokens.xs,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: SpacingTokens.xs,
-            vertical: SpacingTokens.xxs,
-          ),
+        child: LiquidGlassSurface(
+          radius: RadiusTokens.pill,
+          blur: 14,
+          tint: ColorTokens.glassTint.withValues(alpha: 0.72),
+          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
           child: Row(
             children: [
               playPauseButton,
@@ -307,22 +321,24 @@ class _PlayerControlsFooterState extends State<PlayerControlsFooter> {
       );
     }
 
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Colors.transparent, Colors.black54],
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          SpacingTokens.md,
+          0,
+          SpacingTokens.md,
+          SpacingTokens.xs,
         ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
+        child: LiquidGlassSurface(
+          radius: RadiusTokens.panel,
+          blur: 20,
+          elevated: true,
           padding: const EdgeInsets.fromLTRB(
-            SpacingTokens.md,
+            SpacingTokens.sm,
             SpacingTokens.xxs,
-            SpacingTokens.md,
-            SpacingTokens.xs,
+            SpacingTokens.sm,
+            SpacingTokens.xxs,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -730,7 +746,9 @@ class PlayerViewport extends StatelessWidget {
                   !locked &&
                   !showDrawer &&
                   (controls || state.completed);
-              final bottomGap = showFooter ? (full ? 104.0 : 60.0) : SpacingTokens.md;
+              final bottomGap = showFooter
+                  ? (full ? 116.0 : 66.0)
+                  : SpacingTokens.md;
               return Stack(
                 children: [
                   if (state.buffering)
@@ -808,11 +826,18 @@ class PlayerViewport extends StatelessWidget {
                     ),
                     SizedBox(
                       width: drawerWidth,
-                      child: Material(
-                        color: ColorTokens.surface.withValues(alpha: 0.94),
-                        child: SafeArea(
-                          left: false,
-                          child: drawerBuilder!(context),
+                      child: LiquidGlassSurface(
+                        radius: const BorderRadius.horizontal(
+                          left: Radius.circular(24),
+                        ),
+                        blur: 22,
+                        elevated: true,
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SafeArea(
+                            left: false,
+                            child: drawerBuilder!(context),
+                          ),
                         ),
                       ),
                     ),
@@ -854,6 +879,41 @@ class PlayerScreenScaffold extends StatelessWidget {
           : Theme.of(context).scaffoldBackgroundColor,
       body: fullScreen
           ? viewport
+          : AdaptiveLayout.useWideTheatre(context)
+          ? SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: const EdgeInsets.all(SpacingTokens.md),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: ClipRRect(
+                            borderRadius: RadiusTokens.hero,
+                            child: viewport,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: SpacingTokens.md),
+                    SizedBox(
+                      width: 360,
+                      child: LiquidGlassSurface(
+                        radius: RadiusTokens.panel,
+                        blur: 14,
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: details,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
           : SafeArea(
               bottom: false,
               child: Column(

@@ -1,0 +1,60 @@
+name: Build iOS Unsigned IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lib/**'
+      - 'ios/**'
+      - 'assets/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - '.github/workflows/ios-build.yml'
+
+jobs:
+  build-ios:
+    name: Build Unsigned iOS IPA
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dart dependencies
+        run: flutter pub get
+
+      - name: Static analysis & tests
+        run: |
+          flutter analyze
+          flutter test
+
+      - name: Install CocoaPods dependencies
+        run: |
+          cd ios
+          pod install --repo-update
+
+      - name: Build unsigned iOS release
+        run: flutter build ios --release --no-codesign
+
+      - name: Package unsigned IPA
+        run: |
+          rm -rf build/ipa_stage
+          mkdir -p build/ipa_stage/Payload
+          cp -R build/ios/iphoneos/Runner.app build/ipa_stage/Payload/Runner.app
+          cd build/ipa_stage
+          zip -r ../AniView-iOS-unsigned.ipa Payload
+
+      - name: Upload unsigned IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AniView-iOS-unsigned
+          path: build/AniView-iOS-unsigned.ipa
+          if-no-files-found: error

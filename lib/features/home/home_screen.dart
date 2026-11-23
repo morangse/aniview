@@ -6,6 +6,7 @@ import '../../app/providers.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/artwork.dart';
 import '../../core/widgets/common.dart';
+import '../../core/widgets/liquid_glass.dart';
 import '../../core/widgets/soft_controls.dart';
 import '../../media/media.dart';
 import '../anime/anime.dart';
@@ -80,20 +81,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ],
                 ),
                 const SizedBox(height: SpacingTokens.xs),
-                Row(
-                  children: [
-                    for (var i = 0; i < _tabs.length; i++) ...[
-                      if (i > 0) const SizedBox(width: SpacingTokens.xxs),
-                      Expanded(
-                        child: SoftAction(
-                          selected: _tab == i,
-                          style: _tab == i ? SoftStyle.accent : SoftStyle.clear,
-                          onPressed: () => _setTab(i),
-                          child: Text(_tabs[i]),
-                        ),
-                      ),
-                    ],
-                  ],
+                LiquidGlassSegmentedBar(
+                  labels: _tabs,
+                  selectedIndex: _tab,
+                  onSelect: _setTab,
                 ),
                 const SizedBox(height: SpacingTokens.sm),
                 if (_tab == 0) ...[
@@ -466,8 +457,10 @@ class _HomeHero extends ConsumerWidget {
                 ),
               ),
               ConstrainedBox(
-                constraints: const BoxConstraints(
-                  minHeight: LayoutTokens.heroMinHeight,
+                constraints: BoxConstraints(
+                  minHeight: AdaptiveLayout.useSideRail(context)
+                      ? 284.0
+                      : LayoutTokens.heroMinHeight,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(SpacingTokens.md),
@@ -493,7 +486,8 @@ class _HomeHero extends ConsumerWidget {
                           bottom: SpacingTokens.sm,
                         ),
                         child: FractionallySizedBox(
-                          widthFactor: .82,
+                          widthFactor:
+                              AdaptiveLayout.useSideRail(context) ? .64 : .82,
                           alignment: Alignment.centerLeft,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -856,8 +850,8 @@ class _CatalogGrid extends ConsumerWidget {
           primary: false,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: page.items.length,
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 124,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: AdaptiveLayout.gridColumns(context),
             childAspectRatio: .67,
             crossAxisSpacing: SpacingTokens.xs,
             mainAxisSpacing: SpacingTokens.xs,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../core/theme/app_theme.dart';
-import '../../core/widgets/common.dart';
+import '../../core/widgets/liquid_glass.dart';
 import '../../media/playback_controller.dart';
 import 'player_controls_bar.dart';
 
@@ -221,15 +221,19 @@ class _PlayerGestureLayerState extends State<PlayerGestureLayer> {
     return IgnorePointer(
       child: Align(
         alignment: alignment,
-        child: Panel(
+        child: LiquidGlassSurface(
           key: const ValueKey('player-hud'),
+          radius: RadiusTokens.pill,
+          blur: 16,
+          elevated: true,
+          padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.sm,
+            vertical: SpacingTokens.xs,
+          ),
           child: ConstrainedBox(
             constraints: const BoxConstraints(minWidth: 112, maxWidth: 230),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.sm,
-                vertical: SpacingTokens.xs,
-              ),
+            child: DefaultTextStyle.merge(
+              style: Theme.of(context).textTheme.bodyMedium!,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -260,9 +264,7 @@ class _PlayerGestureLayerState extends State<PlayerGestureLayer> {
                       child: LinearProgressIndicator(
                         minHeight: 3,
                         value: _dragProgress,
-                        color: _dragBoost
-                            ? ColorTokens.accent
-                            : Colors.white,
+                        color: _dragBoost ? ColorTokens.accent : Colors.white,
                         backgroundColor: Colors.white24,
                       ),
                     ),
@@ -348,22 +350,26 @@ class _PlayerGestureLayerState extends State<PlayerGestureLayer> {
               bottom: false,
               child: Padding(
                 padding: const EdgeInsets.only(left: SpacingTokens.sm),
-                child: IconButton(
-                  key: const ValueKey('player-lock-button'),
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.black54,
-                    foregroundColor: Colors.white,
+                child: LiquidGlassSurface(
+                  radius: RadiusTokens.pill,
+                  blur: 14,
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: IconButton(
+                      key: const ValueKey('player-lock-button'),
+                      color: Colors.white,
+                      icon: Icon(
+                        widget.locked
+                            ? Icons.lock_rounded
+                            : Icons.lock_open_rounded,
+                      ),
+                      tooltip: widget.locked ? '解锁' : '锁屏',
+                      onPressed: () {
+                        HapticFeedback.selectionClick();
+                        widget.onToggleLock();
+                      },
+                    ),
                   ),
-                  icon: Icon(
-                    widget.locked
-                        ? Icons.lock_rounded
-                        : Icons.lock_open_rounded,
-                  ),
-                  tooltip: widget.locked ? '解锁' : '锁屏',
-                  onPressed: () {
-                    HapticFeedback.selectionClick();
-                    widget.onToggleLock();
-                  },
                 ),
               ),
             ),

@@ -26,6 +26,7 @@ dependencies:
   flutter_secure_storage: 10.0.0
   html: 0.15.7
   xml: 7.0.1
+  media_kit_libs_ios_video: ^1.1.4
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +16,12 @@ abstract final class ColorTokens {
   static const glass = Color(0xD9283B4E);
   static const highlight = Color(0x16000000);
   static const filmScrim = Color(0xE8101923);
+  static const glassTint = Color(0x9E1B2B3C);
+  static const glassElevated = Color(0xC224394E);
+  static const glassSpecularTop = Color(0x52FFFFFF);
+  static const glassSpecularBottom = Color(0x1EA9C9EF);
+  static const glassLens = Color(0x3AA9C9EF);
+  static const glassBorder = Color(0x38FFFFFF);
 }
 
 abstract final class RadiusTokens {
@@ -36,6 +44,9 @@ abstract final class SpacingTokens {
 
 abstract final class LayoutTokens {
   static const contentMax = 640.0;
+  static const mediumContentMax = 920.0;
+  static const wideContentMax = 1180.0;
+  static const railWidth = 88.0;
   static const heroMinHeight = 242.0;
   static const detailArtwork = 288.0;
   static const mistHeight = 630.0;
@@ -46,6 +57,48 @@ abstract final class LayoutTokens {
   static const progressCardHeight = 124.0;
   static const navHeight = 64.0;
   static const navReserve = navHeight + SpacingTokens.lg;
+}
+
+enum DeviceLayoutClass { compact, medium, expanded }
+
+abstract final class AdaptiveLayout {
+  static bool get isApplePlatform =>
+      defaultTargetPlatform == TargetPlatform.iOS ||
+      defaultTargetPlatform == TargetPlatform.macOS;
+
+  static DeviceLayoutClass sizeClass(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    if (size.width < 768 || size.shortestSide < 600) {
+      return DeviceLayoutClass.compact;
+    }
+    if (size.width >= 1100) return DeviceLayoutClass.expanded;
+    return DeviceLayoutClass.medium;
+  }
+
+  static bool useSideRail(BuildContext context) =>
+      sizeClass(context) != DeviceLayoutClass.compact;
+
+  static bool useWideTheatre(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    return size.width >= 960 && size.shortestSide >= 600;
+  }
+
+  static double contentMaxWidth(BuildContext context) => switch (sizeClass(context)) {
+    DeviceLayoutClass.compact => LayoutTokens.contentMax,
+    DeviceLayoutClass.medium => LayoutTokens.mediumContentMax,
+    DeviceLayoutClass.expanded => LayoutTokens.wideContentMax,
+  };
+
+  static int gridColumns(
+    BuildContext context, {
+    int compact = 3,
+    int medium = 4,
+    int expanded = 5,
+  }) => switch (sizeClass(context)) {
+    DeviceLayoutClass.compact => compact,
+    DeviceLayoutClass.medium => medium,
+    DeviceLayoutClass.expanded => expanded,
+  };
 }
 
 abstract final class ShadowTokens {
@@ -92,6 +145,12 @@ abstract final class AppTheme {
     brightness: Brightness.dark,
     useMaterial3: true,
     scaffoldBackgroundColor: ColorTokens.background,
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+      },
+    ),
     colorScheme: const ColorScheme.dark(
       primary: ColorTokens.accent,
       onPrimary: ColorTokens.background,

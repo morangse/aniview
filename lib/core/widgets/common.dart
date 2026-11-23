@@ -16,22 +16,27 @@ class PageColumn extends StatelessWidget {
   final ScrollController? controller;
 
   @override
-  Widget build(BuildContext context) => Center(
-    child: ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: LayoutTokens.contentMax),
-      child: ListView(
-        controller: controller,
-        padding: EdgeInsets.fromLTRB(
-          SpacingTokens.md,
-          SpacingTokens.sm,
-          SpacingTokens.md,
-          (inShell ? LayoutTokens.navReserve : SpacingTokens.lg) +
-              MediaQuery.paddingOf(context).bottom,
+  Widget build(BuildContext context) {
+    final reserveNav = inShell && !AdaptiveLayout.useSideRail(context);
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: AdaptiveLayout.contentMaxWidth(context),
         ),
-        children: children,
+        child: ListView(
+          controller: controller,
+          padding: EdgeInsets.fromLTRB(
+            SpacingTokens.md,
+            SpacingTokens.sm,
+            SpacingTokens.md,
+            (reserveNav ? LayoutTokens.navReserve : SpacingTokens.lg) +
+                MediaQuery.paddingOf(context).bottom,
+          ),
+          children: children,
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class SectionHeading extends StatelessWidget {
@@ -129,11 +134,11 @@ class Panel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Material(
-    color: ColorTokens.surface,
+    color: ColorTokens.surface.withValues(alpha: 0.92),
     clipBehavior: Clip.antiAlias,
     shape: RoundedRectangleBorder(
       borderRadius: radius,
-      side: const BorderSide(color: ColorTokens.faintBorder),
+      side: const BorderSide(color: ColorTokens.glassBorder, width: 0.8),
     ),
     child: child,
   );

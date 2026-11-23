@@ -652,6 +652,7 @@ Future<void> showPlayerSettingsPanelSheet({
   context: context,
   useSafeArea: true,
   isScrollControlled: true,
+  constraints: const BoxConstraints(maxWidth: 580),
   sheetAnimationStyle: MotionTokens.sheetStyle(context),
   builder: (sheetCtx) => SafeArea(
     top: false,
