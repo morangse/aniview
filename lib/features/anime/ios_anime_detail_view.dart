@@ -412,7 +412,10 @@ class _IosBlurredHero extends StatelessWidget {
           backgroundColor: ColorTokens.text,
           foregroundColor: ColorTokens.background,
           shape: const StadiumBorder(),
-          textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+          textStyle: type.labelLarge?.copyWith(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         icon: const Icon(Icons.play_arrow_rounded, size: 24),
         label: Text(playLabel),

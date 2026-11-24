@@ -1,5 +1,5 @@
 name: aniview
-description: An Android-first anime library and personal media player.
+description: An open-source Android, iOS & iPadOS anime tracker and personal media player with Bangumi sync and Danmaku.
 publish_to: none
 version: 0.2.5+7
 

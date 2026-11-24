@@ -618,7 +618,7 @@ class _HomeHero extends ConsumerWidget {
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 18,
                                 ),
-                                textStyle: const TextStyle(
+                                textStyle: type.labelLarge?.copyWith(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 14,
                                 ),

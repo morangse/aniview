@@ -1075,12 +1075,13 @@ class _DanmakuLayerState extends State<_DanmakuLayer>
     final painter = TextPainter(
       text: TextSpan(
         text: item.text,
-        style: TextStyle(
+        style: (DefaultTextStyle.of(context).style).copyWith(
           color: Color(
             effectiveColor,
           ).withValues(alpha: widget.settings.danmakuOpacity),
           fontSize: widget.settings.danmakuSize,
           fontWeight: FontWeight.w600,
+          decoration: TextDecoration.none,
           shadows: const [Shadow(color: ColorTokens.shadow, blurRadius: 3)],
         ),
       ),

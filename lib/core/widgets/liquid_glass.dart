@@ -476,14 +476,17 @@ class IosLiquidGlassDock extends StatelessWidget {
                                       label,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 10.5,
-                                        height: 1.15,
-                                        fontWeight: selected
-                                            ? FontWeight.w600
-                                            : FontWeight.w500,
-                                        color: labelColor,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelSmall
+                                          ?.copyWith(
+                                            fontSize: 10.5,
+                                            height: 1.15,
+                                            fontWeight: selected
+                                                ? FontWeight.w600
+                                                : FontWeight.w500,
+                                            color: labelColor,
+                                          ),
                                     ),
                                   ],
                                 ),
